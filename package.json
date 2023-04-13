@@ -1,0 +1,27 @@
+{
+  "name": "ebraic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ign13101/ebraic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ign13101/ebraic/issues"
+  },
+  "homepage": "https://github.com/ign13101/ebraic#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nedb": "^1.8.0",
+    "svelte": "^3.58.0",
+    "sveltestrap": "^5.10.0"
+  }
+}
