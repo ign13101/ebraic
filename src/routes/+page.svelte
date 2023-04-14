@@ -10,7 +10,7 @@
 
 	let file;
 
-	async function handleSubmitFile(event) {
+	async function handleSubmitFile(event) { 
 		file = event.target.files[0];
 		const zip = new JSZip();
 
