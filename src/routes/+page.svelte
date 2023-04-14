@@ -1,17 +1,19 @@
 <script>
-	import { onMount } from 'svelte';
+	// import { onMount } from 'svelte';
 	import { Container, Form, FormGroup, Input, Label, Button } from 'sveltestrap';
 
 	import JSZip from 'jszip';
 
-	onMount(() => {
-		
-	});
+	// onMount(() => {
 
-	async function handleSubmitFile(event) {		
-	
+	// });
+
+	let file;
+
+	async function handleSubmitFile(event) {
+		file = event.target.files[0];
 		const zip = new JSZip();
-		const file = document.getElementById('file').files[0];
+
 		const unzippedFile = await zip.loadAsync(file);
 		unzippedFile.forEach(async (relativePath, zipEntry) => {
 			if (zipEntry.name.endsWith('.opf')) {
@@ -19,35 +21,47 @@
 				const parser = new DOMParser();
 				const opfDoc = parser.parseFromString(content, 'text/xml');
 				const spine = opfDoc.querySelector('spine');
-				const spineIds = Array.from(spine.querySelectorAll('itemref'), (item) => item.getAttribute('idref'));
+				const spineIds = Array.from(spine.querySelectorAll('itemref'), (item) =>
+					item.getAttribute('idref')
+				);
 				const manifest = opfDoc.querySelector('manifest');
-				const hrefs = spineIds.map((id) => manifest.querySelector(`item[id='${id}']`).getAttribute('href'));
-				await parseWithVersion(unzippedFile, parseInt(opfDoc.querySelector('package').getAttribute('version')), hrefs);
+				const hrefs = spineIds.map((id) =>
+					manifest.querySelector(`item[id='${id}']`).getAttribute('href')
+				);
+				await parseWithVersion(
+					unzippedFile,
+					parseInt(opfDoc.querySelector('package').getAttribute('version')),
+					hrefs
+				);
 			}
 		});
 		console.log('Success');
 	}
 
 	function parseEpubV3(xhtmlText) {
-		console.log("parsev3");
+		console.log('parsev3');
 		const parser = new DOMParser();
 		const xhtmlDoc = parser.parseFromString(xhtmlText, 'application/xhtml+xml');
 		const allElements = xhtmlDoc.body.getElementsByTagName('*');
-		let readableText = Array.from(allElements).map((el) => el.textContent).join(' ');
+		let readableText = Array.from(allElements)
+			.map((el) => el.textContent)
+			.join(' ');
 		return readableText;
 	}
 
 	function parseEpubV2(htmlText) {
-		console.log("parsev2");
+		console.log('parsev2');
 		const parser = new DOMParser();
 		const htmlDoc = parser.parseFromString(htmlText, 'text/html');
 		const allElements = htmlDoc.body.getElementsByTagName('*');
-		let readableText = Array.from(allElements).map((el) => el.textContent).join(' ');
+		let readableText = Array.from(allElements)
+			.map((el) => el.textContent)
+			.join(' ');
 		return readableText;
 	}
 
 	async function parseWithVersion(usableFile, version, hrefs) {
-		console.log("parsewithversion");
+		console.log('parsewithversion');
 		for (const href of hrefs) {
 			const zipEntry = usableFile.file(href);
 			if (zipEntry) {
@@ -59,23 +73,20 @@
 						readableContent = parseEpubV3(content);
 					} else if (version === 2) {
 						readableContent = parseEpubV2(content);
-					}
-					else {
-						console.log("missing1");
+					} else {
+						console.log('missing1');
 					}
 					if (/\S/.test(readableContent)) {
 						console.log(readableContent);
-					}
-					else{
-						console.log("missing2");
+					} else {
+						console.log('missing2');
 					}
 				}
-			}
-			else{
-				console.log("missing3");
+			} else {
+				console.log('missing3');
 			}
 		}
-		console.log("success?");
+		console.log('success?');
 	}
 </script>
 
@@ -85,7 +96,7 @@
 		<FormGroup>
 			<Label for="file">Sube tu libro en formato epub:</Label>
 			<Input required type="file" class="form-control" id="file" name="file" />
-			<Button color="primary" type="submit" >Enviar</Button>
+			<Button color="primary" type="submit">Enviar</Button>
 		</FormGroup>
 	</form>
 </Container>
