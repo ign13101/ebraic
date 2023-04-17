@@ -1,4 +1,5 @@
 <script>
+    import { Button, Form, FormGroup, Label, Input, Container, Card, CardTitle, CardBody, CardText, CardHeader } from "sveltestrap";
     import { onMount } from "svelte";
     import JSZip from "jszip";
 
@@ -10,17 +11,14 @@
         const manifest = opfDoc.querySelector("manifest");
         const spineIds = [];
         const hrefs = [];
-
         for (const item of spine.querySelectorAll("itemref")) {
             spineIds.push(item.getAttribute("idref"));
         }
-
         for (const id of spineIds) {
             hrefs.push(
                 manifest.querySelector(`item[id="${id}"]`).getAttribute("href")
             );
         }
-
         return hrefs;
     };
 
@@ -74,7 +72,7 @@
                 zipEntry.name.replace(/\/[^/]*$/, `/${href}`)
             );
             if (xhtmlEntry) {
-                console.log(xhtmlEntry);
+                // console.log(xhtmlEntry);
                 await processZipEntry(xhtmlEntry, parser);
             }
         }
@@ -91,7 +89,6 @@
         }
     };
 
-
     const downloadBook = () => {
         const element = document.createElement("a");
         const file = new Blob([book], { type: "text/plain" });
@@ -102,18 +99,28 @@
     };
 </script>
 
-<div class="container">
-    <form>
-        <div class="form-group">
-            <label for="epubFileInput">EPUB File:</label>
-            <input
-                type="file"
-                class="form-control-file"
-                id="epubFileInput"
-                on:change={handleFileInput}
-                accept=".epub"
-            />
-        </div>
-    </form>
-    <button on:click={downloadBook} disabled={!book}>Download Book</button>
-</div>
+<Container class="m-5">
+    <Card>
+        <CardHeader>
+
+            <CardTitle>
+                Epub file converter
+            </CardTitle>
+        </CardHeader>
+        <CardBody>
+
+            <Form>
+                <FormGroup>
+                    <Label for="epubFileInput">EPUB File:</Label>
+        <Input
+        type="file"
+          id="epubFileInput"
+          on:change={handleFileInput}
+          accept=".epub"
+          />
+        </FormGroup>
+    </Form>
+    <Button color="primary" on:click={downloadBook} disabled={!book}>Download Book</Button>
+</CardBody>
+</Card>
+</Container>
