@@ -1,7 +1,20 @@
 <script>
-    import { Button, Form, FormGroup, Label, Input, Container, Card, CardTitle, CardBody, CardText, CardHeader } from "sveltestrap";
+    import {
+        Button,
+        Form,
+        FormGroup,
+        Label,
+        Input,
+        Container,
+        Card,
+        CardTitle,
+        CardBody,
+        CardText,
+        CardHeader,
+    } from "sveltestrap";
     import { onMount } from "svelte";
     import JSZip from "jszip";
+    import br from 'braille';
 
     let epubFile;
     let book = "";
@@ -87,6 +100,7 @@
                 await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
+        console.log(br.toBraille(book));
     };
 
     const downloadBook = () => {
@@ -102,25 +116,23 @@
 <Container class="m-5">
     <Card>
         <CardHeader>
-
-            <CardTitle>
-                Epub file converter
-            </CardTitle>
+            <CardTitle>Epub file converter</CardTitle>
         </CardHeader>
         <CardBody>
-
             <Form>
                 <FormGroup>
                     <Label for="epubFileInput">EPUB File:</Label>
-        <Input
-        type="file"
-          id="epubFileInput"
-          on:change={handleFileInput}
-          accept=".epub"
-          />
-        </FormGroup>
-    </Form>
-    <Button color="primary" on:click={downloadBook} disabled={!book}>Download Book</Button>
-</CardBody>
-</Card>
+                    <Input
+                        type="file"
+                        id="epubFileInput"
+                        on:change={handleFileInput}
+                        accept=".epub"
+                    />
+                </FormGroup>
+            </Form>
+            <Button color="primary" on:click={downloadBook} disabled={!book}
+                >Download Book</Button
+            >
+        </CardBody>
+    </Card>
 </Container>
