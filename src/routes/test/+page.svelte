@@ -89,7 +89,9 @@
                 await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
+        console.log(book);
     };
+
 
     // const downloadBook = () => {
     //     const element = document.createElement("a");
