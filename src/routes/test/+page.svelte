@@ -89,26 +89,18 @@
                 await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
-        console.log(book);
     };
 
 
-    // const downloadBook = () => {
-    //     const element = document.createElement("a");
-    //     const file = new Blob([book], { type: "text/plain" });
-    //     element.href = URL.createObjectURL(file);
-    //     element.download = "book.txt";
-    //     document.body.appendChild(element);
-    //     element.click();
-    // };
+    const downloadBook = () => {
+        const element = document.createElement("a");
+        const file = new Blob([book], { type: "text/plain" });
+        element.href = URL.createObjectURL(file);
+        element.download = "book.txt";
+        document.body.appendChild(element);
+        element.click();
+    };
 </script>
-
-<svelte:head>
-    <meta
-        http-equiv="Content-Security-Policy"
-        content="default-src 'self' data:"
-    />
-</svelte:head>
 
 <div class="container">
     <form>
@@ -123,8 +115,5 @@
             />
         </div>
     </form>
-    <button disabled={!book}
-        ><a href={book} download="book.txt">Download Book</a></button
-    >
-    <!-- on:click={downloadBook}  -->
+    <button on:click={downloadBook} disabled={!book}>Download Book</button>
 </div>
