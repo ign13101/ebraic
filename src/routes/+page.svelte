@@ -6,6 +6,8 @@
 		CarouselItem,
 		Container,
 	} from "sveltestrap";
+	import IconSvelte from "./svelte.svelte";
+	import IconVercel from "./vercel.svelte";
 
 	const items = [
 		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
@@ -22,10 +24,13 @@
 				<h1>EBRAIC</h1>
 				<h2>EBook to BRAIlle Converter</h2>
 			</div>
+			<div class="mt-4">
+
+			
 			<Carousel {items} bind:activeIndex>
 				<CarouselIndicators bind:activeIndex {items} />
 
-				<div class="carousel-inner h-30">
+				<div class="carousel-inner">
 					{#each items as item, index}
 						<CarouselItem bind:activeIndex itemIndex={index}>
 							<img src={item} class="d-block w-100" alt="slide" />
@@ -37,6 +42,7 @@
 				<CarouselControl direction="next" bind:activeIndex {items} />
 			</Carousel>
 		</div>
+		</div>
 	</div>
 	<div class="text-center m-4">
 		<h2>Ebook to braille converter</h2>
@@ -47,12 +53,10 @@
 			Seville.
 		</p>
 		<p>
-			This website has been coded in Svelte <img
-				src="https://cdn.jsdelivr.net/npm/@iconify/icons-logos:svelte.svg"
-				alt="Svelte Icon"
-				width="100"
-				height="100"
-			/> and is hosted in Vercel <img src="https://cdn.jsdelivr.net/npm/@iconify/icons-logos:vercel.svg" alt="Vercel Icon" width="100" height="100">.
+			This website has been coded in Svelte <a href="https://svelte.dev/"
+				><IconSvelte class="h-6 w-6" /></a
+			>
+			and is hosted in Vercel <a href="https://vercel.com/"><IconVercel class="h-6 w-6" /></a>.
 		</p>
 		<p>
 			If you want to take a look at the source code you can find the
