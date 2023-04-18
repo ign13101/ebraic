@@ -1,102 +1,62 @@
 <script>
-	// import { onMount } from 'svelte';
-	import { Container, Form, FormGroup, Input, Label, Button } from 'sveltestrap';
+	import {
+		Carousel,
+		CarouselControl,
+		CarouselIndicators,
+		CarouselItem,
+		Container,
+	} from "sveltestrap";
 
-	import JSZip from 'jszip';
-
-	// onMount(() => {
-
-	// });
-
-	let file;
-
-	async function handleSubmitFile(event) { 
-		file = event.target.files[0];
-		const zip = new JSZip();
-
-		const unzippedFile = await zip.loadAsync(file);
-		unzippedFile.forEach(async (relativePath, zipEntry) => {
-			if (zipEntry.name.endsWith('.opf')) {
-				const content = await unzippedFile.file(zipEntry.name).async('string');
-				const parser = new DOMParser();
-				const opfDoc = parser.parseFromString(content, 'text/xml');
-				const spine = opfDoc.querySelector('spine');
-				const spineIds = Array.from(spine.querySelectorAll('itemref'), (item) =>
-					item.getAttribute('idref')
-				);
-				const manifest = opfDoc.querySelector('manifest');
-				const hrefs = spineIds.map((id) =>
-					manifest.querySelector(`item[id='${id}']`).getAttribute('href')
-				);
-				await parseWithVersion(
-					unzippedFile,
-					parseInt(opfDoc.querySelector('package').getAttribute('version')),
-					hrefs
-				);
-			}
-		});
-		console.log('Success');
-	}
-
-	function parseEpubV3(xhtmlText) {
-		console.log('parsev3');
-		const parser = new DOMParser();
-		const xhtmlDoc = parser.parseFromString(xhtmlText, 'application/xhtml+xml');
-		const allElements = xhtmlDoc.body.getElementsByTagName('*');
-		let readableText = Array.from(allElements)
-			.map((el) => el.textContent)
-			.join(' ');
-		return readableText;
-	}
-
-	function parseEpubV2(htmlText) {
-		console.log('parsev2');
-		const parser = new DOMParser();
-		const htmlDoc = parser.parseFromString(htmlText, 'text/html');
-		const allElements = htmlDoc.body.getElementsByTagName('*');
-		let readableText = Array.from(allElements)
-			.map((el) => el.textContent)
-			.join(' ');
-		return readableText;
-	}
-
-	async function parseWithVersion(usableFile, version, hrefs) {
-		console.log('parsewithversion');
-		for (const href of hrefs) {
-			const zipEntry = usableFile.file(href);
-			if (zipEntry) {
-				if (zipEntry.name.endsWith('.xhtml') || zipEntry.name.endsWith('.html')) {
-					console.log(zipEntry.name);
-					const content = await zipEntry.async('string');
-					let readableContent;
-					if (version === 3) {
-						readableContent = parseEpubV3(content);
-					} else if (version === 2) {
-						readableContent = parseEpubV2(content);
-					} else {
-						console.log('missing1');
-					}
-					if (/\S/.test(readableContent)) {
-						console.log(readableContent);
-					} else {
-						console.log('missing2');
-					}
-				}
-			} else {
-				console.log('missing3');
-			}
-		}
-		console.log('success?');
-	}
+	const items = [
+		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+	];
+	let activeIndex = 0;
 </script>
 
-<Container>
-	<h1 class="text-center">Welcome to my homepage!</h1>
-	<form id="form-ebook-upload" on:submit|preventDefault={handleSubmitFile}>
-		<FormGroup>
-			<Label for="file">Sube tu libro en formato epub:</Label>
-			<Input required type="file" class="form-control" id="file" name="file" />
-			<Button color="primary" type="submit">Enviar</Button>
-		</FormGroup>
-	</form>
-</Container>
+<Container class="mt-5">
+	<div class="d-flex flex-column justify-content-center">
+		<div>
+			<div class="text-center">
+				<h1>EBRAIC</h1>
+				<h2>EBook to BRAIlle Converter</h2>
+			</div>
+			<Carousel {items} bind:activeIndex>
+				<CarouselIndicators bind:activeIndex {items} />
+
+				<div class="carousel-inner h-30">
+					{#each items as item, index}
+						<CarouselItem bind:activeIndex itemIndex={index}>
+							<img src={item} class="d-block w-100" alt="slide" />
+						</CarouselItem>
+					{/each}
+				</div>
+
+				<CarouselControl direction="prev" bind:activeIndex {items} />
+				<CarouselControl direction="next" bind:activeIndex {items} />
+			</Carousel>
+		</div>
+	</div>
+	<div class="text-center m-4">
+		<h2>Ebook to braille converter</h2>
+		<p>
+			EBRAIC is a web application that can convert ebooks in EPUB format
+			to PEF files. It is an End of Degree project by a student at Escuela
+			Técnica Superior de Ingeniería Informática of the University of
+			Seville.
+		</p>
+		<p>
+			This website has been coded in Svelte <img
+				src="https://cdn.jsdelivr.net/npm/@iconify/icons-logos:svelte.svg"
+				alt="Svelte Icon"
+				width="100"
+				height="100"
+			/> and is hosted in Vercel <img src="https://cdn.jsdelivr.net/npm/@iconify/icons-logos:vercel.svg" alt="Vercel Icon" width="100" height="100">.
+		</p>
+		<p>
+			If you want to take a look at the source code you can find the
+			repository <a href="https://github.com/ign13101/ebraic">here</a>.
+		</p>
+	</div></Container
+>
