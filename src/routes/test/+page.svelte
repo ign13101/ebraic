@@ -131,6 +131,7 @@
                 await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
+        console.log(book);
         console.log(br.toBraille(book));
     };
 
