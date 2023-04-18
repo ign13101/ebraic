@@ -14,12 +14,43 @@
     } from "sveltestrap";
     import { onMount } from "svelte";
     import JSZip from "jszip";
-    import br from 'braille';
+    import br from "braille";
+    // import XmlWriter from "xml-writer";
+    import { create, fragment } from "xmlbuilder2";
 
     let epubFile;
     let book = "";
 
+    function createXML(meta) {
+        // console.log(meta);
+        const doc = create({ version: "1.0", encoding: "UTF-8" });
+        const pef = doc.ele("pef", {
+            version: "2008-1",
+            xmlns: "http://www.daisy.org/ns/2008/pef",
+        });
+        const head = pef.ele("head");
+        const metaHead = head.ele(meta);
+        let body = pef.ele("body");
+        let volume = body.ele("volume");
+        let section = volume.ele("section");
+        let page = section.ele("page");
+        let row = page.ele("row");
+        const xmlOutput = doc.end({ prettyPrint: true });
+        console.log(xmlOutput);
+    }
+
     const parseOpfDoc = (opfDoc) => {
+        const metadata = opfDoc.querySelector("metadata");
+        const xmlSerializer = new XMLSerializer();
+        const xmlString = xmlSerializer.serializeToString(metadata);
+
+        const modifiedXmlString = xmlString
+            .replace(/<metadata/g, "<meta")
+            .replace(/<\/metadata>/g, "</meta>");
+        // console.log(modifiedXmlString);
+
+        createXML(modifiedXmlString);
+
         const spine = opfDoc.querySelector("spine");
         const manifest = opfDoc.querySelector("manifest");
         const spineIds = [];
