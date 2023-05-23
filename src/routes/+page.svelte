@@ -24,6 +24,7 @@
     style="z-index: 3;" 
     
 >
+
     <NavbarBrand href="/" style="font-weight: bold">EBRAIC</NavbarBrand>
     <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
     <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
