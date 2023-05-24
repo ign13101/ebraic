@@ -1,66 +1,273 @@
 <script>
-	import {
-		Carousel,
-		CarouselControl,
-		CarouselIndicators,
-		CarouselItem,
-		Container,
-	} from "sveltestrap";
-	import IconSvelte from "../svelte.svelte";
-	import IconVercel from "../vercel.svelte";
+    import {
+        Navbar,
+        NavbarBrand,
+        NavbarToggler,
+        Nav,
+        NavItem,
+        NavLink,
+        Container,
+        Collapse,
+    } from "sveltestrap";
 
-	const items = [
-		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
-		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
-		"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
-	];
-	let activeIndex = 0;
+    let isOpen = false;
+
+    function handleUpdate(event) {
+        isOpen = event.detail.isOpen;
+    }
 </script>
 
-<Container class="mt-5">
-	<div class="d-flex flex-column justify-content-center">
-		<div>
-			<div class="text-center">
-				<h1>EBRAIC</h1>
-				<h2>EBook to BRAIlle Converter</h2>
-			</div>
-			<div class="mt-4">
-
-			
-			<Carousel {items} bind:activeIndex>
-				<CarouselIndicators bind:activeIndex {items} />
-
-				<div class="carousel-inner">
-					{#each items as item, index}
-						<CarouselItem bind:activeIndex itemIndex={index}>
-							<img src={item} class="d-block w-100" alt="slide" />
-						</CarouselItem>
-					{/each}
-				</div>
-
-				<CarouselControl direction="prev" bind:activeIndex {items} />
-				<CarouselControl direction="next" bind:activeIndex {items} />
-			</Carousel>
-		</div>
-		</div>
-	</div>
-	<div class="text-center m-4">
-		<h2>Ebook to braille converter</h2>
-		<p>
-			EBRAIC is a web application that can convert ebooks in EPUB format
-			to PEF files. It is an End of Degree project by a student at Escuela
-			Técnica Superior de Ingeniería Informática of the University of
-			Seville.
-		</p>
-		<p>
-			This website has been coded in Svelte <a href="https://svelte.dev/"
-				><IconSvelte class="h-6 w-6" /></a
-			>
-			and is hosted in Vercel <a href="https://vercel.com/"><IconVercel class="h-6 w-6" /></a>.
-		</p>
-		<p>
-			If you want to take a look at the source code you can find the
-			repository <a href="https://github.com/ign13101/ebraic">here</a>.
-		</p>
-	</div></Container
+<Navbar
+    color="transparent"
+    dark
+    expand="md"
+    style="" 
+	ref="bar"
+    
 >
+
+    <NavbarBrand href="/" style="font-weight: bold; margin-right: 0;">EBRAIC</NavbarBrand>
+    <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
+    <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
+    <Nav navbar ref="nav">
+        <NavItem ref="navitem">
+            <NavLink
+                href="/converter"
+                class="navbar-link"
+                style="font-weight: bold">INICIO</NavLink
+            >
+        </NavItem>
+        <NavItem ref="navitem">
+            <NavLink
+                href="/converter"
+                class="navbar-link"
+                style="font-weight: bold">CONVERSOR ARCHIVOS</NavLink
+            >
+        </NavItem>
+        <NavItem ref="navitem">
+            <NavLink
+                href="/converter"
+                class="navbar-link"
+                style="font-weight: bold">CONVERSOR TEXTO</NavLink
+            >
+        </NavItem>
+        <NavItem ref="navitem">
+            <NavLink
+                href="/converter"
+                class="navbar-link"
+                style="font-weight: bold">VISUALIZADOR BRAILLE</NavLink
+            >
+        </NavItem>
+    </Nav>
+    <!-- </Collapse> -->
+</Navbar>
+<!-- <div class="dar my-2" > -->
+    
+	
+	<div class="context">
+<h1>hola</h1>
+		<Container>
+			<div class="m-5 pt-3">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum[d] exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+				
+			</div>
+		</Container>
+	</div>
+	
+	
+	
+	<!-- </div> -->
+	
+	<div class="animatedArea align-middle" >
+<ul class="circles">
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+    <li />
+</ul>
+</div>
+
+<style>
+    /* .header-links a {
+        color: black;
+        font-weight: bold;
+    } */
+/* * {outline: solid 1px red;} */
+@media (max-width: 767px) {
+	:global([ref=bar]) {
+		width: 100%;
+            flex-direction: column !important;
+            align-items: center;
+            text-align: center;
+			position: absolute;
+        }
+        :global([ref=navitem]) {
+            width: 100%;
+            padding: 10px 0;
+        }
+		:global([ref=nav]) {
+flex-direction: column !important;
+color: red;
+		}
+    }
+	@media not all and (max-width: 767px) {
+        :global([ref=bar]) {
+            width: 100%;
+			position: absolute;
+			z-index: 1;
+        }
+        :global([ref=navitem]) {
+            
+        }
+    }
+.context {
+    width: 100%;
+    position: absolute;
+    top:20vh;
+    
+}
+
+.context h1{
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+}
+    
+    .animatedArea {
+        background: #4e54c8;  
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
+    width: 100%;
+    height:100vh;
+    }
+
+    .dark .animatedArea {
+        background: linear-gradient(-45deg, #671313, #690b2f, #0a316c, #085b1c);
+        background-size: 400% 400%;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .circles {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .circles li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
+
+    .circles li:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+    }
+
+    .circles li:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+    }
+
+    .circles li:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+    }
+
+    .circles li:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+    }
+
+    .circles li:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+    }
+
+    .circles li:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+    }
+
+    .circles li:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+    }
+
+    .circles li:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+    }
+
+    .circles li:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+    }
+
+    .circles li:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+            border-radius: 0;
+        }
+
+        100% {
+            transform: translateY(-1000px) rotate(720deg);
+            opacity: 0;
+            border-radius: 50%;
+        }
+    }
+</style>
