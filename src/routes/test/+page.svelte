@@ -9,87 +9,172 @@
         Container,
         Collapse,
     } from "sveltestrap";
+    import { onMount } from "svelte";
 
-    let isOpen = false;
+    // let isOpen = false;
+    let screenWidth;
+    let phoneView;
 
-    function handleUpdate(event) {
-        isOpen = event.detail.isOpen;
+    onMount(() => {
+        screenWidth = window.innerWidth;
+
+        if (screenWidth < 767) {
+            phoneView = true;
+        } else {
+            phoneView = false;
+        }
+        window.addEventListener("resize", handleResize);
+    });
+
+    function handleResize() {
+        screenWidth = window.innerWidth;
+        if (screenWidth < 767) {
+            phoneView = true;
+        } else {
+            phoneView = false;
+        }
+        console.log(phoneView);
     }
+
+    // function handleUpdate(event) {
+    //     isOpen = event.detail.isOpen;
+    // }
 </script>
 
-<Navbar
-    color="transparent"
-    dark
-    expand="md"
-    style="" 
-	ref="bar"
-    
->
+{#if phoneView}
+    <Navbar color="transparent" dark expand="md" ref="barPhone">
+        <NavbarBrand href="/" style="font-weight: bold; margin-right: 0;"
+            >EBRAIC</NavbarBrand
+        >
+        <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
+        <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
+        <Nav navbar vertical>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">INICIO</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">CONVERSOR ARCHIVOS</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">CONVERSOR TEXTO</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">VISUALIZADOR BRAILLE</NavLink
+                >
+            </NavItem>
+        </Nav>
+    </Navbar>
+    <div class="contextPhone">
+        <h1>hola</h1>
+        <Container>
+            <div class="m-5 pt-3">
+                Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam eaque ipsa,
+                quae ab illo inventore veritatis et quasi architecto beatae
+                vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia
+                voluptas sit, aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos, qui ratione voluptatem sequi
+                nesciunt, neque porro quisquam est, qui dolorem ipsum, quia
+                dolor sit amet consectetur adipisci[ng] velit, sed quia non
+                numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore
+                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+                quis nostrum[d] exercitationem ullam corporis suscipit
+                laboriosam, nisi ut aliquid ex ea commodi consequatur?
+            </div>
+        </Container>
+    </div>
+{:else}
+    <Navbar color="transparent" dark expand="md" ref="bar">
+        <NavbarBrand href="/" style="font-weight: bold; margin-right: 0;"
+            >EBRAIC</NavbarBrand
+        >
+        <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
+        <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
+        <Nav navbar>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">INICIO</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">CONVERSOR ARCHIVOS</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">CONVERSOR TEXTO</NavLink
+                >
+            </NavItem>
+            <NavItem ref="navitem">
+                <NavLink
+                    href="/converter"
+                    class="navbar-link"
+                    style="font-weight: bold">VISUALIZADOR BRAILLE</NavLink
+                >
+            </NavItem>
+        </Nav>
+        <!-- </Collapse> -->
+    </Navbar>
+    <div class="context">
+        <h1>hola</h1>
+        <Container>
+            <div class="m-5 pt-3">
+                Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam eaque ipsa,
+                quae ab illo inventore veritatis et quasi architecto beatae
+                vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia
+                voluptas sit, aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos, qui ratione voluptatem sequi
+                nesciunt, neque porro quisquam est, qui dolorem ipsum, quia
+                dolor sit amet consectetur adipisci[ng] velit, sed quia non
+                numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore
+                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+                quis nostrum[d] exercitationem ullam corporis suscipit
+                laboriosam, nisi ut aliquid ex ea commodi consequatur?
+            </div>
+        </Container>
+    </div>
+{/if}
 
-    <NavbarBrand href="/" style="font-weight: bold; margin-right: 0;">EBRAIC</NavbarBrand>
-    <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
-    <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
-    <Nav navbar ref="nav">
-        <NavItem ref="navitem">
-            <NavLink
-                href="/converter"
-                class="navbar-link"
-                style="font-weight: bold">INICIO</NavLink
-            >
-        </NavItem>
-        <NavItem ref="navitem">
-            <NavLink
-                href="/converter"
-                class="navbar-link"
-                style="font-weight: bold">CONVERSOR ARCHIVOS</NavLink
-            >
-        </NavItem>
-        <NavItem ref="navitem">
-            <NavLink
-                href="/converter"
-                class="navbar-link"
-                style="font-weight: bold">CONVERSOR TEXTO</NavLink
-            >
-        </NavItem>
-        <NavItem ref="navitem">
-            <NavLink
-                href="/converter"
-                class="navbar-link"
-                style="font-weight: bold">VISUALIZADOR BRAILLE</NavLink
-            >
-        </NavItem>
-    </Nav>
-    <!-- </Collapse> -->
-</Navbar>
 <!-- <div class="dar my-2" > -->
-    
-	
-	<div class="context">
-<h1>hola</h1>
-		<Container>
-			<div class="m-5 pt-3">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum[d] exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-				
-			</div>
-		</Container>
-	</div>
-	
-	
-	
-	<!-- </div> -->
-	
-	<div class="animatedArea align-middle" >
-<ul class="circles">
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-    <li />
-</ul>
+
+<!-- </div> -->
+
+<div class="animatedArea align-middle">
+    <ul class="circles">
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+    </ul>
 </div>
 
 <style>
@@ -97,52 +182,71 @@
         color: black;
         font-weight: bold;
     } */
-/* * {outline: solid 1px red;} */
-@media (max-width: 767px) {
-	:global([ref=bar]) {
-		width: 100%;
+    /* * {outline: solid 1px red;} */
+    /* @media (max-width: 767px) {
+        :global([ref="bar"]) {
+            width: 100%;
             flex-direction: column !important;
             align-items: center;
             text-align: center;
-			position: absolute;
+            position: absolute;
         }
-        :global([ref=navitem]) {
+        :global([ref="navitem"]) {
             width: 100%;
             padding: 10px 0;
         }
-		:global([ref=nav]) {
-flex-direction: column !important;
-color: red;
-		}
-    }
-	@media not all and (max-width: 767px) {
-        :global([ref=bar]) {
+        :global([ref="nav"]) {
+            flex-direction: column !important;
+            color: red;
+        }
+    } */
+    /* @media not all and (max-width: 767px) {
+        :global([ref="bar"]) {
             width: 100%;
-			position: absolute;
-			z-index: 1;
+            position: absolute;
+            z-index: 1;
         }
-        :global([ref=navitem]) {
-            
+        :global([ref="navitem"]) {
         }
+    } */
+    :global([ref="bar"]) {
+        width: 100%;
+        position: absolute;
+        /* z-index: 1; */
     }
-.context {
-    width: 100%;
-    position: absolute;
-    top:20vh;
-    
-}
+    :global([ref="barPhone"]) {
+        width: 100%;
+        position: absolute;
+        /* z-index: 1; */
+    }
+    .contextPhone {
+        width: 100%;
+        position: absolute;
+        top: 50vh;
+    }
 
-.context h1{
-    text-align: center;
-    color: #fff;
-    font-size: 50px;
-}
-    
+    .contextPhone h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 50px;
+    }
+    .context {
+        width: 100%;
+        position: absolute;
+        top: 20vh;
+    }
+
+    .context h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 50px;
+    }
+
     .animatedArea {
-        background: #4e54c8;  
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
-    width: 100%;
-    height:100vh;
+        background: #4e54c8;
+        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+        width: 100%;
+        height: 100vh;
     }
 
     .dark .animatedArea {
