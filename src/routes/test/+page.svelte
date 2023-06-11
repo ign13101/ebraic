@@ -241,10 +241,10 @@
         height: 100vh;
     }
 
-    .dark .animatedArea {
+    /* .dark .animatedArea {
         background: linear-gradient(-45deg, #671313, #690b2f, #0a316c, #085b1c);
         background-size: 400% 400%;
-    }
+    } */
 
     @keyframes gradient {
         0% {
