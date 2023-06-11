@@ -14,9 +14,12 @@
     // let isOpen = false;
     let screenWidth;
     let phoneView;
+    let screenHeight
 
     onMount(() => {
         screenWidth = window.innerWidth;
+        screenHeight = window.innerHeight;
+        console.log("height" + screenHeight);
 
         if (screenWidth < 767) {
             phoneView = true;
@@ -28,6 +31,7 @@
 
     function handleResize() {
         screenWidth = window.innerWidth;
+        screenHeight = window.innerHeight;
         if (screenWidth < 767) {
             phoneView = true;
         } else {
@@ -42,61 +46,38 @@
 </script>
 
 {#if phoneView}
-    <Navbar color="transparent" dark expand="md" ref="barPhone">
-        <NavbarBrand href="/" style="font-weight: bold; margin-right: 0;"
-            >EBRAIC</NavbarBrand
+    <div
+        class="mt-3"
+        style="background-color: transparent; position: absolute; width: 100%; z-index: 1;"
+    >
+        <div
+            class="d-flex flex-column justify-content-center align-items-center"
         >
-        <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
-        <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
-        <Nav navbar vertical>
-            <NavItem ref="navitem">
-                <NavLink
-                    href="/converter"
-                    class="navbar-link"
-                    style="font-weight: bold">INICIO</NavLink
-                >
-            </NavItem>
-            <NavItem ref="navitem">
-                <NavLink
-                    href="/converter"
-                    class="navbar-link"
-                    style="font-weight: bold">CONVERSOR ARCHIVOS</NavLink
-                >
-            </NavItem>
-            <NavItem ref="navitem">
-                <NavLink
-                    href="/converter"
-                    class="navbar-link"
-                    style="font-weight: bold">CONVERSOR TEXTO</NavLink
-                >
-            </NavItem>
-            <NavItem ref="navitem">
-                <NavLink
-                    href="/converter"
-                    class="navbar-link"
-                    style="font-weight: bold">VISUALIZADOR BRAILLE</NavLink
-                >
-            </NavItem>
-        </Nav>
-    </Navbar>
-    <div class="contextPhone">
+            <a href="/converter" class="link-light mt-1">
+                <div class="navig-link" id="brand">EBRAIC</div></a
+            >
+            <!-- <a href="/converter" class="link-light mt-2"
+                ><div class="navig-link">INICIO</div></a
+            > -->
+            <a href="/converter" class="link-light mt-1"
+                ><div class="navig-link">CONVERSOR ARCHIVOS</div></a
+            >
+            <a href="/converter" class="link-light mt-1"
+                ><div class="navig-link">CONVERSOR TEXTO</div>
+            </a>
+            <a href="/converter" class="link-light mt-1"
+                ><div class="navig-link">VISUALIZADOR BRAILLE</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="contextPhone" style="height: ${screenHeight}px;">
         <h1>phoneView</h1>
-        <Container>
-            <div class="m-5 pt-3">
-                Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam eaque ipsa,
-                quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia
-                voluptas sit, aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos, qui ratione voluptatem sequi
-                nesciunt, neque porro quisquam est, qui dolorem ipsum, quia
-                dolor sit amet consectetur adipisci[ng] velit, sed quia non
-                numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore
-                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
-                quis nostrum[d] exercitationem ullam corporis suscipit
-                laboriosam, nisi ut aliquid ex ea commodi consequatur?
-            </div>
-        </Container>
+        <div class="m-5 pt-2">
+            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam eaque ipsa,
+            quae ab illo inventore veritatis et quasi architecto 
+        </div>
     </div>
 {:else}
     <Navbar color="transparent" dark expand="md" ref="bar">
@@ -106,13 +87,13 @@
         <!-- <NavbarToggler aria-label="Toggle navigation" on:click={() => (isOpen = !isOpen)} /> -->
         <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
         <Nav navbar>
-            <NavItem ref="navitem">
+            <!-- <NavItem ref="navitem">
                 <NavLink
                     href="/converter"
                     class="navbar-link"
                     style="font-weight: bold">INICIO</NavLink
                 >
-            </NavItem>
+            </NavItem> -->
             <NavItem ref="navitem">
                 <NavLink
                     href="/converter"
@@ -209,10 +190,20 @@
         :global([ref="navitem"]) {
         }
     } */
+    #brand {
+        font-size: 1.5em;
+    }
+    .navig-link {
+        /* font-family: 'Courier New', Courier, monospace; */
+        font-weight: bold;
+    }
+    a {
+        text-decoration: none;
+    }
     :global([ref="bar"]) {
         width: 100%;
         position: absolute;
-        /* z-index: 1; */
+        z-index: 1;
     }
     :global([ref="barPhone"]) {
         width: 100%;
@@ -222,7 +213,8 @@
     .contextPhone {
         width: 100%;
         position: absolute;
-        top: 50vh;
+        top: 40vh;
+        /* height: {screenHeight}; */
     }
 
     .contextPhone h1 {
