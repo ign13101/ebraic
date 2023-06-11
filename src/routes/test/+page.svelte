@@ -80,7 +80,7 @@
         </Nav>
     </Navbar>
     <div class="contextPhone">
-        <h1>hola</h1>
+        <h1>phoneView</h1>
         <Container>
             <div class="m-5 pt-3">
                 Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
@@ -138,7 +138,7 @@
         <!-- </Collapse> -->
     </Navbar>
     <div class="context">
-        <h1>hola</h1>
+        <h1>not phoneView</h1>
         <Container>
             <div class="m-5 pt-3">
                 Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
