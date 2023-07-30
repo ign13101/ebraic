@@ -23,83 +23,17 @@
     let two = "-";
     let three = `-`;
 
-    const brailleChars = {
-  'a': '\u2801', 'b': '\u2803', 'c': '\u2809', 'd': '\u2819',
-  'e': '\u2811', 'f': '\u280B', 'g': '\u281B', 'h': '\u2813',
-  'i': '\u280A', 'j': '\u281A', 'k': '\u2805', 'l': '\u2807',
-  'm': '\u280D', 'n': '\u281D', 'o': '\u2815', 'p': '\u280F',
-  'q': '\u281F', 'r': '\u2817', 's': '\u280E', 't': '\u281E',
-  'u': '\u2825', 'v': '\u2827', 'w': '\u283A', 'x': '\u282D',
-  'y': '\u283D', 'z': '\u2835',
-  'A': '\u2820', 'B': '\u2821', 'C': '\u2823', 'D': '\u283B',
-  'E': '\u2828', 'F': '\u2833', 'G': '\u283A', 'H': '\u2831',
-  'I': '\u2829', 'J': '\u2832', 'K': '\u2825', 'L': '\u2827',
-  'M': '\u283D', 'N': '\u2835', 'O': '\u283C', 'P': '\u2839',
-  'Q': '\u283E', 'R': '\u2837', 'S': '\u282E', 'T': '\u2836',
-  'U': '\u2845', 'V': '\u2847', 'W': '\u285A', 'X': '\u284D',
-  'Y': '\u285D', 'Z': '\u2855',
-  'ä': '\u2805', 'ö': '\u280C', 'ü': '\u281C', 'ß': '\u2830',
-  'Ä': '\u2805', 'Ö': '\u280C', 'Ü': '\u281C',
-  'ä': '\u2805', 'ö': '\u280C', 'Ä': '\u2805', 'Ö': '\u280C',
-  'Å': '\u2820', 'Ć': '\u2823', 'Ę': '\u2828', 'Ł': '\u2839',
-  'Ń': '\u2835', 'Ø': '\u283C', 'Ś': '\u282E', 'Ź': '\u285D',
-  'Ż': '\u2855',
-  'а': '\u2801', 'б': '\u2810', 'в': '\u2813', 'г': '\u2809',
-  'д': '\u2819', 'е': '\u2811', 'ё': '\u2811', 'ж': '\u2815',
-  'з': '\u2817', 'и': '\u280A', 'й': '\u281A', 'к': '\u2805',
-  'л': '\u2807', 'м': '\u280D', 'н': '\u281D', 'о': '\u2815',
-  'п': '\u280F', 'р': '\u281F', 'с': '\u280E', 'т': '\u281E',
-  'у': '\u2825', 'ф': '\u281B', 'х': '\u2823', 'ц': '\u282F',
-  'ч': '\u2833', 'ш': '\u282D', 'щ': '\u2831', 'ъ': '\u280C',
-  'ы': '\u2827', 'ь': '\u2821', 'э': '\u282B', 'ю': '\u2837',
-  'я': '\u2835',
-  'अ': '\u2801', 'आ': '\u2803', 'इ': '\u280A', 'ई': '\u281A',
-  'उ': '\u2825', 'ऊ': '\u2825\u281A', 'ऋ': '\u2821\u281A',
-  'ए': '\u2811', 'ऐ': '\u2811\u281A', 'ओ': '\u2815', 'औ': '\u2815\u281A',
-  'क': '\u2805', 'ख': '\u2805\u280A', 'ग': '\u2805\u2819', 'घ': '\u2805\u2819\u280A',
-  'च': '\u2809', 'छ': '\u2809\u280A', 'ज': '\u281B', 'झ': '\u281B\u280A',
-  'ट': '\u2810', 'ठ': '\u2810\u280A', 'ड': '\u2810\u2819', 'ढ': '\u2810\u2819\u280A',
-  'ण': '\u281D', 'त': '\u281E', 'थ': '\u281E\u280A', 'द': '\u2819',
-  'ध': '\u2819\u280A', 'न': '\u281D', 'प': '\u280F', 'फ': '\u280B',
-  'ब': '\u2813', 'भ': '\u2813\u280A', 'म': '\u280D', 'य': '\u283D',
-  'र': '\u2817', 'ल': '\u2807', 'व': '\u2827', 'श': '\u280E',
-  'ष': '\u280E\u2819', 'स': '\u280E\u2819\u280A', 'ह': '\u2813\u280A',
-  // Numbers
-  '0': '\u281A', '1': '\u2801', '2': '\u2803', '3': '\u2809',
-  '4': '\u2819', '5': '\u2811', '6': '\u280B', '7': '\u281B',
-  '8': '\u2813', '9': '\u280A',
-  // Common symbols
-  ' ': '\u2800',  // Space
-  '.': '\u2802',  // Period
-  ',': '\u2806',  // Comma
-  ';': '\u280E',  // Semicolon
-  ':': '\u280A',  // Colon
-  '!': '\u2816',  // Exclamation Mark
-  '?': '\u281E',  // Question Mark
-  "'": '\u2803',  // Apostrophe
-  '"': '\u281B',  // Quotation Mark
-  '-': '\u280F',  // Hyphen
-  '(': '\u281C',  // Left Parenthesis
-  ')': '\u2838',  // Right Parenthesis
-  '[': '\u281C',  // Left Square Bracket
-  ']': '\u2838',  // Right Square Bracket
-  '/': '\u283F',  // Slash
-  '&': '\u2826',  // Ampersand
-  '@': '\u2837',  // At Sign
-  '#': '\u2833',  // Hash Sign
-  '$': '\u282F',  // Dollar Sign
-  '%': '\u2835',  // Percent Sign
-  '*': '\u282D',  // Asterisk
-  '+': '\u2836',  // Plus Sign
-  '=': '\u283A',  // Equal Sign
-  '<': '\u2822',  // Less Than Sign
-  '>': '\u2832',  // Greater Than Sign
-};
+    import languages from "./brailleChars.js";
+    import { each } from "svelte/internal";
+    console.log(languages.English.a);
 
-function textToBraille(text) {
-  const brailleText = Array.from(text, char => brailleChars[char.toLowerCase()] || char).join('');
-  return brailleText;
-}
+    function textToBraille(text) {
+        const brailleText = Array.from(
+            text,
+            (char) => brailleChars[char.toLowerCase()] || char
+        ).join("");
+        return brailleText;
+    }
 
     console.log("0");
 
@@ -217,7 +151,7 @@ function textToBraille(text) {
 
     const downloadBook = () => {
         console.log("6");
-// console.log(book);
+        // console.log(book);
         const element = document.createElement("a");
         const file = new Blob([book], { type: "text/plain" });
         element.href = URL.createObjectURL(file);
@@ -263,6 +197,12 @@ function textToBraille(text) {
         <CardBody>
             <Form>
                 <FormGroup>
+                    <Label for="languageInput" />
+                    <Input type="select" id="languageInput" default="{Object.keys(languages)[0]}">
+                        {#each Object.keys(languages) as language}
+                            <option value={language}>{language}</option>
+                        {/each}
+                    </Input>
                     <Label for="epubFileInput">EPUB File:</Label>
                     <Input
                         type="file"
