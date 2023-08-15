@@ -24,14 +24,9 @@
     let three = `-`;
 
     import languages from "./brailleChars.js";
-    import { each } from "svelte/internal";
-    console.log(languages.English.a);
 
     function textToBraille(text) {
-        const brailleText = Array.from(
-            text,
-            (char) => brailleChars[char.toLowerCase()] || char
-        ).join("");
+        const brailleText = Array.from(text, (char) => languages.Spanish[char.toLowerCase()] || char).join("");
         return brailleText;
     }
 
@@ -152,8 +147,12 @@
     const downloadBook = () => {
         console.log("6");
         // console.log(book);
+        const brailleBook = textToBraille(book); // Translate the entire book text to Braille
+        
+        const file = new Blob([brailleBook], { type: "text/plain" });
+        
         const element = document.createElement("a");
-        const file = new Blob([book], { type: "text/plain" });
+        
         element.href = URL.createObjectURL(file);
         element.download = "book.txt";
         document.body.appendChild(element);
