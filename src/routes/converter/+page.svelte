@@ -14,7 +14,6 @@
     } from "sveltestrap";
     import { onMount } from "svelte";
     import JSZip from "jszip";
-    import br from "braille";
     import { create, fragment } from "xmlbuilder2";
 
     let epubFile;
