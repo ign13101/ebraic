@@ -25,7 +25,7 @@
     import languages from "./brailleChars.js";
 
     function textToBraille(text) {
-        const brailleText = Array.from(text, (char) => languages.Spanish[char.toLowerCase()] || char).join("");
+        const brailleText = Array.from(text, (char) => languages.Spanish[char] || languages.Spanish.default).join("");
         return brailleText;
     }
 
@@ -134,10 +134,10 @@
         const content = await zipEntry.async("string");
         let readableText = "";
         // console.log(zipEntry.name);
-        if (zipEntry.name.endsWith(".xhtml")) {
+        if ((zipEntry.name.endsWith(".xhtml")) || (zipEntry.name.endsWith(".html"))) {
             readableText = parseXhtmlDoc(content);
-        } else if (zipEntry.name.endsWith(".html")) {
-            readableText = parseHtmlDoc(content);
+        // } else if (zipEntry.name.endsWith(".html")) {
+        //     readableText = parseHtmlDoc(content);
         }
         // console.log(readableText);
         book += `${readableText}\n`;
@@ -172,19 +172,19 @@
         return readableText;
     };
 
-    const parseHtmlDoc = (content) => {
-        // console.log("3.");
-        const parser = new DOMParser();
-        const htmlDoc = parser.parseFromString(
-            content,
-            "application/xhtml+xml"
-        );
-        const allElements = htmlDoc.body.getElementsByTagName("*");
-        const readableText = Array.from(allElements)
-            .map((el) => el.textContent)
-            .join(" ");
-        return readableText;
-    };
+    // const parseHtmlDoc = (content) => {
+    //     // console.log("3.");
+    //     const parser = new DOMParser();
+    //     const htmlDoc = parser.parseFromString(
+    //         content,
+    //         "application/xhtml+xml"
+    //     );
+    //     const allElements = htmlDoc.body.getElementsByTagName("*");
+    //     const readableText = Array.from(allElements)
+    //         .map((el) => el.textContent)
+    //         .join(" ");
+    //     return readableText;
+    // };
 </script>
 
 <Container class="m-5">

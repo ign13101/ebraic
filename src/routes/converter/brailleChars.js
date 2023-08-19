@@ -210,6 +210,7 @@
         // "%": "\u2835", // Percent Sign
         // "<": "\u2822", // Less Than Sign
         // ">": "\u2832", // Greater Than Sign
+        default: "\u2800",
     },
     
 };
