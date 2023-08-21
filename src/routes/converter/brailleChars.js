@@ -205,6 +205,7 @@
         "*": "\u2814", // Asterisk fixed
         "+": "\u2816", // Plus Sign fixed
         "=": "\u2836", // Equal Sign fixed
+        "\\n": "\u000A",
         // $: "\u282F", // Dollar Sign
         // "&": "\u2826", // Ampersand
         // "%": "\u2835", // Percent Sign

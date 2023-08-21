@@ -24,6 +24,12 @@
                 <NavLink href="/converter" class="text-white">Converter</NavLink>
             </NavItem>
             <NavItem>
+                <NavLink href="/translator" class="text-white">Translator</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/viewer" class="text-white">Viewer</NavLink>
+            </NavItem>
+            <NavItem>
                 <NavLink href="/about" class="text-white">About</NavLink>
               </NavItem>
         </Nav>

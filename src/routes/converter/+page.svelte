@@ -25,9 +25,15 @@
     import languages from "./brailleChars.js";
 
     function textToBraille(text) {
-        const brailleText = Array.from(text, (char) => languages.Spanish[char] || languages.Spanish.default).join("");
-        return brailleText;
-    }
+    const brailleText = Array.from(text, (char) => {
+        if (char === "\n") {
+            // Handle new line character here, replace with desired Braille representation
+            return "\u000A"; // For example, replace with two line break characters
+        }
+        return languages.Spanish[char] || languages.Spanish.default;
+    }).join("");
+    return brailleText;
+}
 
     console.log("0");
 
