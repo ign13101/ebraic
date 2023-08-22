@@ -26,29 +26,43 @@
     // ... Your dictionaries object and textToBraille function here ...
 
     let translateText = async () => {
-        console.log("start");
-        // Split the inputText into individual Braille characters
-        let brailleCharacters = inputText.split("");
-        console.log("breakpoint1");
+    // Split the inputText into individual Braille characters
+    let brailleCharacters = inputText.split("");
 
-        // Convert Braille characters to their corresponding language characters
-        let translatedCharacters = brailleCharacters.map((brailleChar) => {
-            // Check if the Braille character exists in the selected language's mapping
-            console.log("breakpoint2");
-            console.log("braillechar  " + brailleChar);
-            if (brailleChar in dictionaries[selectedLanguage]) {
-                console.log("breakpoint3a");
-                return dictionaries[selectedLanguage][brailleChar];
-            } else {
-                console.log("breakpoint3b");
-                // If not found, use the default Braille character
-                return dictionaries[selectedLanguage].default;
-            }
-        });
+    // Convert Braille characters to their corresponding language characters
+    let translatedCharacters = [];
+    for (let i = 0; i < brailleCharacters.length; i++) {
+        let brailleChar = brailleCharacters[i];
+        let nextBrailleChar = brailleCharacters[i + 1];
 
-        // Join the translated characters to form the outputText
-        outputText = translatedCharacters.join("");
-    };
+        console.log("Processing:", brailleChar, nextBrailleChar);
+
+        if (
+            (brailleChar + nextBrailleChar) in dictionaries[selectedLanguage]
+        ) {
+            console.log("Found compound:", brailleChar + nextBrailleChar);
+            console.log("Resulting compound: " + dictionaries[selectedLanguage][brailleChar + nextBrailleChar]);
+            translatedCharacters.push(
+                dictionaries[selectedLanguage][brailleChar + nextBrailleChar]
+            );
+            i++; // Skip the next character since it's part of a compound character
+        } else if (brailleChar in dictionaries[selectedLanguage]) {
+            console.log("Found:", brailleChar);
+            translatedCharacters.push(
+                dictionaries[selectedLanguage][brailleChar]
+            );
+        } else {
+            console.log("Not found:", brailleChar);
+            translatedCharacters.push(
+                dictionaries[selectedLanguage].default
+            );
+        }
+    }
+
+    // Join the translated characters to form the outputText
+    outputText = translatedCharacters.join("");
+};
+
 </script>
 
 <Container class="m-5">

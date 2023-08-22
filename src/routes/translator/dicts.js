@@ -110,6 +110,7 @@ const dictionaries = {
         "\u2816": "+", // Plus Sign fixed
         "\u2836": "=", // Equal Sign fixed
         "\u000A": "\\n",
+        "\u28FF": "□", // 8 dot full symbol for blank square
         default: "\u2800",
     },
 };
