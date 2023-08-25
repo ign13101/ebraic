@@ -1,97 +1,97 @@
 // English: {
-    //     // English Braille characters
-    //     a: "\u2801",
-    //     b: "\u2803",
-    //     c: "\u2809",
-    //     d: "\u2819",
-    //     e: "\u2811",
-    //     f: "\u280B",
-    //     g: "\u281B",
-    //     h: "\u2813",
-    //     i: "\u280A",
-    //     j: "\u281A",
-    //     k: "\u2805",
-    //     l: "\u2807",
-    //     m: "\u280D",
-    //     n: "\u281D",
-    //     o: "\u2815",
-    //     p: "\u280F",
-    //     q: "\u281F",
-    //     r: "\u2817",
-    //     s: "\u280E",
-    //     t: "\u281E",
-    //     u: "\u2825",
-    //     v: "\u2827",
-    //     w: "\u283A",
-    //     x: "\u282D",
-    //     y: "\u283D",
-    //     z: "\u2835",
-    //     A: "\u2820",
-    //     B: "\u2821",
-    //     C: "\u2823",
-    //     D: "\u283B",
-    //     E: "\u2828",
-    //     F: "\u2833",
-    //     G: "\u283A",
-    //     H: "\u2831",
-    //     I: "\u2829",
-    //     J: "\u2832",
-    //     K: "\u2825",
-    //     L: "\u2827",
-    //     M: "\u283D",
-    //     N: "\u2835",
-    //     O: "\u283C",
-    //     P: "\u2839",
-    //     Q: "\u283E",
-    //     R: "\u2837",
-    //     S: "\u282E",
-    //     T: "\u2836",
-    //     U: "\u2845",
-    //     V: "\u2847",
-    //     W: "\u285A",
-    //     X: "\u284D",
-    //     Y: "\u285D",
-    //     Z: "\u2855",
-    //     // Numbers
-    //     "0": "\u281A",
-    //     "1": "\u2801",
-    //     "2": "\u2803",
-    //     "3": "\u2809",
-    //     "4": "\u2819",
-    //     "5": "\u2811",
-    //     "6": "\u280B",
-    //     "7": "\u281B",
-    //     "8": "\u2813",
-    //     "9": "\u280A",
-    //     // Common symbols
-    //     " ": "\u2800", // Space
-    //     ".": "\u2802", // Period
-    //     ",": "\u2806", // Comma
-    //     ";": "\u280E", // Semicolon
-    //     ":": "\u280A", // Colon
-    //     "!": "\u2816", // Exclamation Mark
-    //     "?": "\u281E", // Question Mark
-    //     "'": "\u2803", // Apostrophe
-    //     '"': "\u281B", // Quotation Mark
-    //     "-": "\u280F", // Hyphen
-    //     "(": "\u281C", // Left Parenthesis
-    //     ")": "\u2838", // Right Parenthesis
-    //     "[": "\u281C", // Left Square Bracket
-    //     "]": "\u2838", // Right Square Bracket
-    //     "/": "\u283F", // Slash
-    //     "&": "\u2826", // Ampersand
-    //     "@": "\u2837", // At Sign
-    //     "#": "\u2833", // Hash Sign
-    //     $: "\u282F", // Dollar Sign
-    //     "%": "\u2835", // Percent Sign
-    //     "*": "\u282D", // Asterisk
-    //     "+": "\u2836", // Plus Sign
-    //     "=": "\u283A", // Equal Sign
-    //     "<": "\u2822", // Less Than Sign
-    //     ">": "\u2832", // Greater Than Sign
-    // },
-    
-    const languages = {
+//     // English Braille characters
+//     a: "\u2801",
+//     b: "\u2803",
+//     c: "\u2809",
+//     d: "\u2819",
+//     e: "\u2811",
+//     f: "\u280B",
+//     g: "\u281B",
+//     h: "\u2813",
+//     i: "\u280A",
+//     j: "\u281A",
+//     k: "\u2805",
+//     l: "\u2807",
+//     m: "\u280D",
+//     n: "\u281D",
+//     o: "\u2815",
+//     p: "\u280F",
+//     q: "\u281F",
+//     r: "\u2817",
+//     s: "\u280E",
+//     t: "\u281E",
+//     u: "\u2825",
+//     v: "\u2827",
+//     w: "\u283A",
+//     x: "\u282D",
+//     y: "\u283D",
+//     z: "\u2835",
+//     A: "\u2820",
+//     B: "\u2821",
+//     C: "\u2823",
+//     D: "\u283B",
+//     E: "\u2828",
+//     F: "\u2833",
+//     G: "\u283A",
+//     H: "\u2831",
+//     I: "\u2829",
+//     J: "\u2832",
+//     K: "\u2825",
+//     L: "\u2827",
+//     M: "\u283D",
+//     N: "\u2835",
+//     O: "\u283C",
+//     P: "\u2839",
+//     Q: "\u283E",
+//     R: "\u2837",
+//     S: "\u282E",
+//     T: "\u2836",
+//     U: "\u2845",
+//     V: "\u2847",
+//     W: "\u285A",
+//     X: "\u284D",
+//     Y: "\u285D",
+//     Z: "\u2855",
+//     // Numbers
+//     "0": "\u281A",
+//     "1": "\u2801",
+//     "2": "\u2803",
+//     "3": "\u2809",
+//     "4": "\u2819",
+//     "5": "\u2811",
+//     "6": "\u280B",
+//     "7": "\u281B",
+//     "8": "\u2813",
+//     "9": "\u280A",
+//     // Common symbols
+//     " ": "\u2800", // Space
+//     ".": "\u2802", // Period
+//     ",": "\u2806", // Comma
+//     ";": "\u280E", // Semicolon
+//     ":": "\u280A", // Colon
+//     "!": "\u2816", // Exclamation Mark
+//     "?": "\u281E", // Question Mark
+//     "'": "\u2803", // Apostrophe
+//     '"': "\u281B", // Quotation Mark
+//     "-": "\u280F", // Hyphen
+//     "(": "\u281C", // Left Parenthesis
+//     ")": "\u2838", // Right Parenthesis
+//     "[": "\u281C", // Left Square Bracket
+//     "]": "\u2838", // Right Square Bracket
+//     "/": "\u283F", // Slash
+//     "&": "\u2826", // Ampersand
+//     "@": "\u2837", // At Sign
+//     "#": "\u2833", // Hash Sign
+//     $: "\u282F", // Dollar Sign
+//     "%": "\u2835", // Percent Sign
+//     "*": "\u282D", // Asterisk
+//     "+": "\u2836", // Plus Sign
+//     "=": "\u283A", // Equal Sign
+//     "<": "\u2822", // Less Than Sign
+//     ">": "\u2832", // Greater Than Sign
+// },
+
+const languages = {
     Spanish: {
         // Spanish lowercase alphabet fixed
         a: "\u2801",
@@ -212,15 +212,110 @@
         "=": "\u2836", // Equal Sign fixed
         "\\n": "\u000A",
         "%": "\u2838\u2834", // Percentage sign fixed
+        "&": "\u2820\u282F",
+        "§": "\u282C",
         "©": "\u2823\u2828\u2809\u281C", // Copyright sign fixed
         // $: "\u282F", // Dollar Sign
         // "&": "\u2826", // Ampersand
         // "%": "\u2835", // Percent Sign
         // "<": "\u2822", // Less Than Sign
         // ">": "\u2832", // Greater Than Sign
-        default: "\u28FF", // 8 dot full symbol for blank square
+        default: "\u282C", // 8 dot full symbol for blank square
     },
-    
+
+    English: {
+        // English lowercase alphabet
+        a: "\u2801",
+        b: "\u2803",
+        c: "\u2809",
+        d: "\u2819",
+        e: "\u2811",
+        f: "\u280B",
+        g: "\u281B",
+        h: "\u2813",
+        i: "\u280A",
+        j: "\u281A",
+        k: "\u2805",
+        l: "\u2807",
+        m: "\u280D",
+        n: "\u281D",
+        o: "\u2815",
+        p: "\u280F",
+        q: "\u281F",
+        r: "\u2817",
+        s: "\u280E",
+        t: "\u281E",
+        u: "\u2825",
+        v: "\u2827",
+        w: "\u283A",
+        x: "\u282D",
+        y: "\u283D",
+        z: "\u2835",
+
+        // English uppercase alphabet
+        A: "\u2828\u2801",
+        B: "\u2828\u2803",
+        C: "\u2828\u2809",
+        D: "\u2828\u2819",
+        E: "\u2828\u2811",
+        F: "\u2828\u280B",
+        G: "\u2828\u281B",
+        H: "\u2828\u2813",
+        I: "\u2828\u280A",
+        J: "\u2828\u281A",
+        K: "\u2828\u2805",
+        L: "\u2828\u2807",
+        M: "\u2828\u280D",
+        N: "\u2828\u281D",
+        O: "\u2828\u2815",
+        P: "\u2828\u280F",
+        Q: "\u2828\u281F",
+        R: "\u2828\u2817",
+        S: "\u2828\u280E",
+        T: "\u2828\u281E",
+        U: "\u2828\u2825",
+        V: "\u2828\u2827",
+        W: "\u2828\u283A",
+        X: "\u2828\u282D",
+        Y: "\u2828\u283D",
+        Z: "\u2828\u2835",
+
+        // English special characters
+        "(": "\u2823",
+        ")": "\u281C",
+        "[": "\u2810\u2837",
+        "]": "\u2838\u283E",
+        "{": "\u2810\u2807",
+        "}": "\u2838\u2802",
+        "/": "\u2820\u2802",
+        "\\": "\u2810\u2804",
+        "@": "\u2810",
+        "#": "\u283C",
+        "*": "\u2814",
+        "+": "\u282C",
+        "=": "\u2836",
+        "&": "\u2826", // Ampersand
+        "%": "\u2835", // Percent Sign
+        "<": "\u2822", // Less Than Sign
+        ">": "\u2832", // Greater Than Sign
+        "$": "\u2814\u2814", // Dollar Sign
+        "`": "\u2800\u2800", // Backtick (grave accent)
+        // "~": "\u2800\u2824", // Tilde
+        // ... (other special symbols)
+
+        // English numbers
+        "0": "\u283C\u281A",
+        "1": "\u283C\u2801",
+        "2": "\u283C\u2803",
+        "3": "\u283C\u2809",
+        "4": "\u283C\u2819",
+        "5": "\u283C\u2811",
+        "6": "\u283C\u280B",
+        "7": "\u283C\u281B",
+        "8": "\u283C\u2813",
+        "9": "\u283C\u280A",
+    },
+
 };
 
 // console.log(languages);
