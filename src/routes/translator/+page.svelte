@@ -26,43 +26,61 @@
     // ... Your dictionaries object and textToBraille function here ...
 
     let translateText = async () => {
-    // Split the inputText into individual Braille characters
-    let brailleCharacters = inputText.split("");
+        // Split the inputText into individual Braille characters
+        let brailleCharacters = inputText.split("");
 
-    // Convert Braille characters to their corresponding language characters
-    let translatedCharacters = [];
-    for (let i = 0; i < brailleCharacters.length; i++) {
-        let brailleChar = brailleCharacters[i];
-        let nextBrailleChar = brailleCharacters[i + 1];
+        // Convert Braille characters to their corresponding language characters
+        let translatedCharacters = [];
+        for (let i = 0; i < brailleCharacters.length; i++) {
+            let brailleChar = brailleCharacters[i];
+            let nextBrailleChar = brailleCharacters[i + 1];
 
-        console.log("Processing:", brailleChar, nextBrailleChar);
+            console.log("Processing:", brailleChar, nextBrailleChar);
 
-        if (
-            (brailleChar + nextBrailleChar) in dictionaries[selectedLanguage]
-        ) {
-            console.log("Found compound:", brailleChar + nextBrailleChar);
-            console.log("Resulting compound: " + dictionaries[selectedLanguage][brailleChar + nextBrailleChar]);
-            translatedCharacters.push(
-                dictionaries[selectedLanguage][brailleChar + nextBrailleChar]
-            );
-            i++; // Skip the next character since it's part of a compound character
-        } else if (brailleChar in dictionaries[selectedLanguage]) {
-            console.log("Found:", brailleChar);
-            translatedCharacters.push(
-                dictionaries[selectedLanguage][brailleChar]
-            );
-        } else {
-            console.log("Not found:", brailleChar);
-            translatedCharacters.push(
-                dictionaries[selectedLanguage].default
-            );
+            if (
+                brailleChar + nextBrailleChar in
+                dictionaries[selectedLanguage]
+            ) {
+                console.log("Found compound:", brailleChar + nextBrailleChar);
+                console.log(
+                    "Resulting compound: " +
+                        dictionaries[selectedLanguage][
+                            brailleChar + nextBrailleChar
+                        ]
+                );
+                translatedCharacters.push(
+                    dictionaries[selectedLanguage][
+                        brailleChar + nextBrailleChar
+                    ]
+                );
+                i++; // Skip the next character since it's part of a compound character
+            } else if (brailleChar in dictionaries[selectedLanguage]) {
+                console.log(
+                    "Found:",
+                    brailleChar +
+                        " " +
+                        dictionaries[selectedLanguage][brailleChar]
+                );
+                translatedCharacters.push(
+                    dictionaries[selectedLanguage][brailleChar]
+                );
+            } else {
+                console.log("Not found:", brailleChar);
+                if (brailleChar == "\n") {
+                    console.log("THIS IS THE CASE");
+                    translatedCharacters.push(brailleChar + "");
+                }
+                else {
+                    translatedCharacters.push(
+                        dictionaries[selectedLanguage].default
+                    );
+                }
+            }
         }
-    }
 
-    // Join the translated characters to form the outputText
-    outputText = translatedCharacters.join("");
-};
-
+        // Join the translated characters to form the outputText
+        outputText = translatedCharacters.join("");
+    };
 </script>
 
 <Container class="m-5">

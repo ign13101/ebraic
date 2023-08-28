@@ -24,16 +24,22 @@
 
     import languages from "./brailleChars.js";
 
-    function textToBraille(text) {
-    const brailleText = Array.from(text, (char) => {
-        if (char === "\n") {
-            // Handle new line character here, replace with desired Braille representation
-            return "\u000A"; // For example, replace with two line break characters
-        }
-        return languages.Spanish[char] || languages.Spanish.default;
-    }).join("");
-    return brailleText;
-}
+    let selectedLanguage = Object.keys(languages)[0];
+
+    function textToBraille(text, selectedLanguage) {
+        console.log(selectedLanguage);
+        const brailleText = Array.from(text, (char) => {
+            if (char === "\n") {
+                // Handle new line character here, replace with desired Braille representation
+                return "\u000A"; // For example, replace with two line break characters
+            }
+            return (
+                languages[selectedLanguage][char] ||
+                languages[selectedLanguage].default
+            );
+        }).join("");
+        return brailleText;
+    }
 
     console.log("0");
 
@@ -50,7 +56,7 @@
             }
         }
         console.log(book);
-        console.log(textToBraille(book));
+        console.log(textToBraille(book, selectedLanguage));
     };
 
     const handleOpfEntry = async (zip, zipEntry, parser) => {
@@ -140,10 +146,13 @@
         const content = await zipEntry.async("string");
         let readableText = "";
         // console.log(zipEntry.name);
-        if ((zipEntry.name.endsWith(".xhtml")) || (zipEntry.name.endsWith(".html"))) {
+        if (
+            zipEntry.name.endsWith(".xhtml") ||
+            zipEntry.name.endsWith(".html")
+        ) {
             readableText = parseXhtmlDoc(content);
-        // } else if (zipEntry.name.endsWith(".html")) {
-        //     readableText = parseHtmlDoc(content);
+            // } else if (zipEntry.name.endsWith(".html")) {
+            //     readableText = parseHtmlDoc(content);
         }
         // console.log(readableText);
         book += `${readableText}\n`;
@@ -152,12 +161,12 @@
     const downloadBook = () => {
         console.log("6");
         // console.log(book);
-        const brailleBook = textToBraille(book); // Translate the entire book text to Braille
-        
+        const brailleBook = textToBraille(book, selectedLanguage); // Translate the entire book text to Braille
+
         const file = new Blob([brailleBook], { type: "text/plain" });
-        
+
         const element = document.createElement("a");
-        
+
         element.href = URL.createObjectURL(file);
         element.download = "book.txt";
         document.body.appendChild(element);
@@ -202,7 +211,13 @@
             <Form>
                 <FormGroup>
                     <Label for="languageInput" />
-                    <Input type="select" id="languageInput" default="{Object.keys(languages)[0]}">
+                    <Input
+                        type="select"
+                        id="languageInput"
+                        value={selectedLanguage}
+                        on:change={(event) =>
+                            (selectedLanguage = event.target.value)}
+                    >
                         {#each Object.keys(languages) as language}
                             <option value={language}>{language}</option>
                         {/each}
@@ -228,7 +243,12 @@
     <p class="steptwo">
         Files with text: {two}
     </p>
-    <span class="status">Status: {three}</span>
+    <span class="status">
+        Status: {three}
+    </span>
+    <p class="language">
+        Selected Language: {selectedLanguage}
+    </p>
 </Container>
 
 <style>
