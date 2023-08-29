@@ -1,7 +1,7 @@
 <script>
   import Header from "./Header.svelte";
   import { page } from "$app/stores";
-  let pathname = $page.url.pathname;
+  // let pathname = $page.url.pathname;
   
 </script>
 
@@ -13,13 +13,13 @@
 </svelte:head>
 
 <main>
-  {#if (pathname !== "/") && (pathname !== "/test")}
+  <!-- {#if (pathname !== "/") && (pathname !== "/test")} -->
     <Header />
 
     <slot class="slot" />
-  {:else}
+  <!-- {:else}
     <slot class="slot" />
-  {/if}
+  {/if} -->
 
   <!-- <Footer/> -->
 </main>

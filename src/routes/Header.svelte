@@ -1,43 +1,55 @@
 <script>
     import {
-        Navbar,
-        NavbarBrand,
-        Nav,
-        NavItem,
-        NavLink,
-        Dropdown,
-        DropdownToggle,
-        DropdownMenu,
-        DropdownItem,
+        Row,
+        Col,
     } from "sveltestrap";
 </script>
 
-<header>
-    <Navbar color="primary" dark expand="md" container="fluid">
-        <NavbarBrand href="/"><b> Ebook to Braille Converter</b></NavbarBrand>
-
-        <Nav navbar>
-            <NavItem>
-                <NavLink href="/" class="text-white">Home</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/converter" class="text-white">Converter</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/translator" class="text-white">Translator</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/viewer" class="text-white">Viewer</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/about" class="text-white">About</NavLink>
-              </NavItem>
-        </Nav>
-    </Navbar>
+<header class="full-width-header">
+    <Row class="d-md-flex align-items-center justify-content-between">
+        <Col class="col-md-auto mb-2 mb-md-0 ml-md-4">
+            <a href="/" class="linkBrand"><b> <span class="elevated-text">EBRAI</span>⠯</b></a>
+        </Col>
+        <Col class="col-md-auto d-flex justify-content-md-end mr-md-4">
+            <a href="/" class="link">Home</a>
+            <a href="/converter" class="link">Converter</a>
+            <a href="/translator" class="link">Translator</a>
+            <a href="/viewer" class="link">Viewer</a>
+            <a href="/about" class="link">About</a>
+        </Col>
+    </Row>
 </header>
 
 <style>
-    header {
+    /* You can add global or scoped styles here if needed */
+    /* * {
+        outline: 1px solid red;
+    } */
+
+    .link {
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9em;
+        color: black;
+        padding: 15px; /* Add some padding for links */
+    }
+
+    .linkBrand {
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 2em;
+        color: black;
+        padding-left: 15px; /* Add some left padding to the brand link */
+    }
+
+    .elevated-text {
+        display: inline-block;
+        transform: translateY(-0.05em); /* Adjust this value for desired elevation */
+    }
+
+    .full-width-header {
         width: 100%;
     }
 </style>
