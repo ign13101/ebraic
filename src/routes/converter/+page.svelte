@@ -22,6 +22,8 @@
     let two = "-";
     let three = `-`;
 
+    let modifiedXmlString;
+
     import languages from "./brailleChars.js";
 
     let selectedLanguage = Object.keys(languages)[0];
@@ -55,8 +57,10 @@
                 await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
-        console.log(book);
-        console.log(textToBraille(book, selectedLanguage));
+        console.log("book ready");
+        createXML(modifiedXmlString);
+        // console.log(book);
+        // console.log(textToBraille(book, selectedLanguage));
     };
 
     const handleOpfEntry = async (zip, zipEntry, parser) => {
@@ -94,10 +98,10 @@
         const xmlSerializer = new XMLSerializer();
         const xmlString = xmlSerializer.serializeToString(metadata);
 
-        const modifiedXmlString = xmlString
+        modifiedXmlString = xmlString
             .replace(/<metadata/g, "<meta")
             .replace(/<\/metadata>/g, "</meta>");
-        createXML(modifiedXmlString);
+        
 
         const spine = opfDoc.querySelector("spine");
         const manifest = opfDoc.querySelector("manifest");
@@ -119,25 +123,41 @@
     };
 
     const createXML = (meta) => {
-        console.log("4");
-        three += "Creating target XML file\n";
-        // console.log(meta);
-        const doc = create({ version: "1.0", encoding: "UTF-8" });
-        const pef = doc.ele("pef", {
-            version: "2008-1",
-            xmlns: "http://www.daisy.org/ns/2008/pef",
-        });
-        const head = pef.ele("head");
-        const metaHead = head.ele(meta);
-        let body = pef.ele("body");
-        let volume = body.ele("volume");
-        let section = volume.ele("section");
-        let page = section.ele("page");
-        // This is incomplete, needs to be continued
+    console.log("4");
+    three += "Creating target XML file\n";
+
+    let brailleText = textToBraille(book, selectedLanguage);
+    // console.log(brailleText);
+
+    const doc = create({ version: "1.0", encoding: "UTF-8" });
+    const pef = doc.ele("pef", {
+        version: "2008-1",
+        xmlns: "http://www.daisy.org/ns/2008/pef",
+    });
+    const head = pef.ele("head");
+    const metaHead = head.ele(meta);
+
+    let body = pef.ele("body");
+    let volume = body.ele("volume", {
+        cols: "32", rows: "29", rowgap: "0", duplex: "true",
+    });
+    let section = volume.ele("section");
+    let page = section.ele("page");
+
+    
+    const brailleChars = Array.from(brailleText);
+
+    while (brailleChars.length > 0) {
+        let rowText = brailleChars.splice(0, 32).join("");
         let row = page.ele("row");
-        const xmlOutput = doc.end({ prettyPrint: true });
-        // console.log(xmlOutput);
-    };
+        row.txt(rowText);
+    }
+
+    const xmlOutput = doc.end({ prettyPrint: true });
+    return xmlOutput;
+    // console.log(xmlOutput);
+};
+
 
     const processZipEntry = async (zipEntry, parser) => {
         console.log("5");
@@ -159,19 +179,19 @@
     };
 
     const downloadBook = () => {
-        console.log("6");
-        // console.log(book);
-        const brailleBook = textToBraille(book, selectedLanguage); // Translate the entire book text to Braille
+    console.log("6");
+    // console.log(book);
+    const xmlOutput = createXML(modifiedXmlString); // Get the XML content
 
-        const file = new Blob([brailleBook], { type: "text/plain" });
+    const file = new Blob([xmlOutput], { type: "application/xml" }); // Set the MIME type as application/xml
 
-        const element = document.createElement("a");
+    const element = document.createElement("a");
 
-        element.href = URL.createObjectURL(file);
-        element.download = "book.txt";
-        document.body.appendChild(element);
-        element.click();
-    };
+    element.href = URL.createObjectURL(file);
+    element.download = "book.pef"; // Change the download filename to "book.pef"
+    document.body.appendChild(element);
+    element.click();
+};
 
     const parseXhtmlDoc = (content) => {
         // console.log("2.");
@@ -202,7 +222,7 @@
     // };
 </script>
 
-<Container class="m-5">
+<Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
             <CardTitle>Epub file converter</CardTitle>

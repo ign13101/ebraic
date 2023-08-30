@@ -83,7 +83,7 @@
     };
 </script>
 
-<Container class="m-5">
+<Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
             <CardTitle>Braille Text Translator</CardTitle>
