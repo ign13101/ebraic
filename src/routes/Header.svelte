@@ -41,12 +41,12 @@
         font-weight: bold;
         font-size: 2em;
         color: black;
-        padding-left: 15px; /* Add some left padding to the brand link */
+        padding-left: 15px;
     }
 
     .elevated-text {
         display: inline-block;
-        transform: translateY(-0.05em); /* Adjust this value for desired elevation */
+        transform: translateY(-0.05em);
     }
 
     /* Media query for mobile view */
