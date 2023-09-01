@@ -9,18 +9,16 @@
         Card,
         CardTitle,
         CardBody,
-        CardText,
         CardHeader,
     } from "sveltestrap";
-    import { onMount } from "svelte";
     import JSZip from "jszip";
     import { create, fragment } from "xmlbuilder2";
 
     let epubFile;
     let book = "";
-    let one = "-";
-    let two = "-";
-    let three = `-`;
+    let epubVersion = "-";
+    let fileNumber = "-";
+    let statusLog = `-`;
 
     let modifiedXmlString;
 
@@ -29,7 +27,7 @@
     let selectedLanguage = Object.keys(languages)[0];
 
     function textToBraille(text, selectedLanguage) {
-        console.log(selectedLanguage);
+        console.log("textToBraille function start");
         const brailleText = Array.from(text, (char) => {
             if (char === "\n") {
                 // Handle new line character here, replace with desired Braille representation
@@ -43,11 +41,9 @@
         return brailleText;
     }
 
-    console.log("0");
-
     const handleFileInput = async (event) => {
-        console.log("1");
-        three = `\nStarting...\n`;
+        console.log("handleFileInput function start");
+        statusLog = `\nStarting...\n`;
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
 
@@ -64,35 +60,35 @@
     };
 
     const handleOpfEntry = async (zip, zipEntry, parser) => {
-        console.log("2");
-        three += `Accessing opf file\n`;
+        console.log("handleOpfEntry function start");
+        statusLog += `Accessing opf file\n`;
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
         const hrefs = parseOpfDoc(opfDoc);
         if (hrefs.length > 0) {
-            two = `${hrefs.length} files found`;
+            fileNumber = `${hrefs.length} files found`;
         }
         // console.log(hrefs);
 
-        three += "Processing files with readable text\n";
+        statusLog += "Processing files with readable text\n";
         for (const href of hrefs) {
             // const xhtmlEntry = zip.file(
             //     zipEntry.name.replace(/\/[^/]*$/, `/${href}`)
             // );
-            // This is the fix for the commented previous three lines
+            // This is the fix for the commented previous statusLog lines
             const xhtmlEntry = zip.file(
                 zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`)
             );
             await processZipEntry(xhtmlEntry, parser);
         }
-        three += "Ready for download";
+        statusLog += "Ready for download";
     };
 
     const parseOpfDoc = (opfDoc) => {
-        console.log("3");
-        three += "Parsing opf file\n";
+        console.log("parseOpfDoc function start");
+        statusLog += "Parsing opf file\n";
         // console.log(opfDoc);
-        one = opfDoc.querySelector("package").getAttribute("version");
+        epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
         // console.log(metadata);
         const xmlSerializer = new XMLSerializer();
@@ -101,7 +97,6 @@
         modifiedXmlString = xmlString
             .replace(/<metadata/g, "<meta")
             .replace(/<\/metadata>/g, "</meta>");
-        
 
         const spine = opfDoc.querySelector("spine");
         const manifest = opfDoc.querySelector("manifest");
@@ -123,44 +118,45 @@
     };
 
     const createXML = (meta) => {
-    console.log("4");
-    three += "Creating target XML file\n";
+        console.log("createXML function start");
+        statusLog += "Creating target XML file\n";
 
-    let brailleText = textToBraille(book, selectedLanguage);
-    // console.log(brailleText);
+        let brailleText = textToBraille(book, selectedLanguage);
+        // console.log(brailleText);
 
-    const doc = create({ version: "1.0", encoding: "UTF-8" });
-    const pef = doc.ele("pef", {
-        version: "2008-1",
-        xmlns: "http://www.daisy.org/ns/2008/pef",
-    });
-    const head = pef.ele("head");
-    const metaHead = head.ele(meta);
+        const doc = create({ version: "1.0", encoding: "UTF-8" });
+        const pef = doc.ele("pef", {
+            version: "2008-1",
+            xmlns: "http://www.daisy.org/ns/2008/pef",
+        });
+        const head = pef.ele("head");
+        const metaHead = head.ele(meta);
 
-    let body = pef.ele("body");
-    let volume = body.ele("volume", {
-        cols: "32", rows: "29", rowgap: "0", duplex: "true",
-    });
-    let section = volume.ele("section");
-    let page = section.ele("page");
+        let body = pef.ele("body");
+        let volume = body.ele("volume", {
+            cols: "32",
+            rows: "29",
+            rowgap: "0",
+            duplex: "true",
+        });
+        let section = volume.ele("section");
+        let page = section.ele("page");
 
-    
-    const brailleChars = Array.from(brailleText);
+        const brailleChars = Array.from(brailleText);
 
-    while (brailleChars.length > 0) {
-        let rowText = brailleChars.splice(0, 32).join("");
-        let row = page.ele("row");
-        row.txt(rowText);
-    }
+        while (brailleChars.length > 0) {
+            let rowText = brailleChars.splice(0, 32).join("");
+            let row = page.ele("row");
+            row.txt(rowText);
+        }
 
-    const xmlOutput = doc.end({ prettyPrint: true });
-    return xmlOutput;
-    // console.log(xmlOutput);
-};
-
+        const xmlOutput = doc.end({ prettyPrint: true });
+        return xmlOutput;
+        // console.log(xmlOutput);
+    };
 
     const processZipEntry = async (zipEntry, parser) => {
-        console.log("5");
+        console.log("processZipEntry function start");
 
         // console.log(zipEntry);
         const content = await zipEntry.async("string");
@@ -179,22 +175,22 @@
     };
 
     const downloadBook = () => {
-    console.log("6");
-    // console.log(book);
-    const xmlOutput = createXML(modifiedXmlString); // Get the XML content
+        console.log("downloadBook function start");
+        // console.log(book);
+        const xmlOutput = createXML(modifiedXmlString); // Get the XML content
 
-    const file = new Blob([xmlOutput], { type: "application/xml" }); // Set the MIME type as application/xml
+        const file = new Blob([xmlOutput], { type: "application/xml" }); // Set the MIME type as application/xml
 
-    const element = document.createElement("a");
+        const element = document.createElement("a");
 
-    element.href = URL.createObjectURL(file);
-    element.download = "book.pef"; // Change the download filename to "book.pef"
-    document.body.appendChild(element);
-    element.click();
-};
+        element.href = URL.createObjectURL(file);
+        element.download = "book.pef"; // Change the download filename to "book.pef"
+        document.body.appendChild(element);
+        element.click();
+    };
 
     const parseXhtmlDoc = (content) => {
-        // console.log("2.");
+        console.log("parseXhtml function start");
         const parser = new DOMParser();
         const xhtmlDoc = parser.parseFromString(
             content,
@@ -257,14 +253,14 @@
         </CardBody>
     </Card>
     <br />
-    <p class="stepOne">
-        Epub version: {one}
+    <p class="epubVersion">
+        Epub version: {epubVersion}
     </p>
-    <p class="steptwo">
-        Files with text: {two}
+    <p class="fileNumber">
+        Files with text: {fileNumber}
     </p>
-    <span class="status">
-        Status: {three}
+    <span class="statusLog">
+        Status: {statusLog}
     </span>
     <p class="language">
         Selected Language: {selectedLanguage}
@@ -272,7 +268,7 @@
 </Container>
 
 <style>
-    .status {
+    .statusLog {
         white-space: pre-wrap;
     }
 </style>

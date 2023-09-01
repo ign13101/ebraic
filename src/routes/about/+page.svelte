@@ -1,8 +1,8 @@
 <script>
     import { Container } from "sveltestrap";
     import { onMount } from "svelte";
-    import SvelteIcon from '../SvelteIcon.svelte'
-    import VercelIcon from '../VercelIcon.svelte'
+    import SvelteIcon from "../SvelteIcon.svelte";
+    import VercelIcon from "../VercelIcon.svelte";
 
     let loadingSymbols = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇"];
     let currentSymbolIndex = 0;
@@ -27,6 +27,7 @@
         <div class="loading-animation">
             {loadingSymbols[currentSymbolIndex]}
         </div>
+        <h2>What is EBRAIC?</h2>
         <div class="text-focus">
             EBRAIC is a web application developed to bridge the gap between
             ebooks and visually impaired people. Allowing you to convert from
@@ -34,7 +35,13 @@
             these electronic books on refreshable Braille displays.
         </div>
         <div>
-            Made with love using <SvelteIcon/> and <VercelIcon/>.
+            Made with love using <SvelteIcon /> and <VercelIcon />.
+        </div>
+        <div>
+            <h2>How does it work?</h2>
+            Ebraic is a multipurpose tool that handles epub files, extracts the metadata
+            and content of those epub files, then converts the readable text into
+            braille, and offers you a variety of ways to use your pef ebook
         </div>
     </div>
 </Container>
