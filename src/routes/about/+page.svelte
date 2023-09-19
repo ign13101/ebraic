@@ -51,9 +51,9 @@
         text-align: justify;
     }
 
-    * {
-        /* outline: 1px solid red; */
-    }
+    /* * {
+         outline: 1px solid red; 
+    } */
 
     .centered-content {
         display: flex;
