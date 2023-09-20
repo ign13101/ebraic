@@ -27,15 +27,22 @@
     <div class="loading-animation">
       {loadingSymbols[currentSymbolIndex]}
     </div>
-    <div>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum[d] exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</div>
+    <div>
+      <p>
+        Bienvenido a EBRAI⠯, una innovadora aplicación diseñada para convertir libros electrónicos en formato EPUB a Braille (Portable Embosser Format - PEF). Con EBRAI⠯, hacemos que la literatura digital sea accesible para personas con discapacidades visuales, ofreciendo una experiencia de lectura en Braille eficiente y amigable.
+      </p>
+      <p>
+        Nuestra aplicación se esfuerza por simplificar la conversión de libros electrónicos y garantizar la calidad y legibilidad del Braille generado. ¡Descubre la magia de la inclusión en la era digital con EBRAI⠯!
+      </p>
+    </div>
   </div>
 </Container>
 
 <style>
   /* Add your styles here */
-  * {
-    /* outline: 1px solid red; */
-  }
+  /* * {
+    outline: 1px solid red;
+  } */
 
   .centered-content {
     display: flex;

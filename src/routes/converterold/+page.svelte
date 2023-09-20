@@ -14,21 +14,24 @@
     import JSZip from "jszip";
     import { create, fragment } from "xmlbuilder2";
 
-    import languages from "./brailleChars.js";
-
     let epubFile;
     let book = "";
     let epubVersion = "-";
-    let fileCount = "-";
-    let processStatus = [];
+    let fileNumber = "-";
+    let statusLog = `-`;
+
     let modifiedXmlString;
+
+    import languages from "./brailleChars.js";
+
     let selectedLanguage = Object.keys(languages)[0];
 
-    function convertTextToBraille(text, selectedLanguage) {
-        console.log("convertTextToBraille function start");
+    function textToBraille(text, selectedLanguage) {
+        console.log("textToBraille function start");
         const brailleText = Array.from(text, (char) => {
             if (char === "\n") {
-                return "\u000A"; // Handle new line character here, replace with desired Braille representation
+                // Handle new line character here, replace with desired Braille representation
+                return "\u000A"; // For example, replace with two line break characters
             }
             return (
                 languages[selectedLanguage][char] ||
@@ -38,46 +41,56 @@
         return brailleText;
     }
 
-    async function handleUploadedFile(event) {
-        processStatus.push("Starting...");
+    const handleFileInput = async (event) => {
+        console.log("handleFileInput function start");
+        statusLog = `\nStarting...\n`;
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
 
         for (const zipEntry of Object.values(zip.files)) {
             if (zipEntry.name.endsWith(".opf")) {
-                await processOpfEntry(zip, zipEntry, new DOMParser());
+                // console.log(zipEntry.name);
+                await handleOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
+        console.log("book ready");
+        createXML(modifiedXmlString);
+        // console.log(book);
+        // console.log(textToBraille(book, selectedLanguage));
+    };
 
-        generateXML(modifiedXmlString);
-    }
-
-    async function processOpfEntry(zip, zipEntry, parser) {
-        processStatus.push("Accessing opf file");
+    const handleOpfEntry = async (zip, zipEntry, parser) => {
+        console.log("handleOpfEntry function start");
+        statusLog += `Accessing opf file\n`;
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
-        const hrefs = parseOpfDocument(opfDoc);
-
+        const hrefs = parseOpfDoc(opfDoc);
         if (hrefs.length > 0) {
-            fileCount = `${hrefs.length} files found`;
+            fileNumber = `${hrefs.length} files found`;
         }
+        // console.log(hrefs);
 
-        processStatus.push("Processing files with readable text");
-
-        const processEntryPromises = hrefs.map(async (href) => {
-            const xhtmlEntry = zip.file(zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`));
+        statusLog += "Processing files with readable text\n";
+        for (const href of hrefs) {
+            // const xhtmlEntry = zip.file(
+            //     zipEntry.name.replace(/\/[^/]*$/, `/${href}`)
+            // );
+            // This is the fix for the commented previous statusLog lines
+            const xhtmlEntry = zip.file(
+                zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`)
+            );
             await processZipEntry(xhtmlEntry, parser);
-        });
+        }
+        statusLog += "Ready for download";
+    };
 
-        await Promise.all(processEntryPromises);
-
-        processStatus.push("Ready for download");
-    }
-
-    function parseOpfDocument(opfDoc) {
-        processStatus.push("Parsing opf file");
+    const parseOpfDoc = (opfDoc) => {
+        console.log("parseOpfDoc function start");
+        statusLog += "Parsing opf file\n";
+        // console.log(opfDoc);
         epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
+        // console.log(metadata);
         const xmlSerializer = new XMLSerializer();
         const xmlString = xmlSerializer.serializeToString(metadata);
 
@@ -89,25 +102,27 @@
         const manifest = opfDoc.querySelector("manifest");
         const spineIds = [];
         const hrefs = [];
-
         for (const item of spine.querySelectorAll("itemref")) {
             spineIds.push(item.getAttribute("idref"));
         }
-
         for (const id of spineIds) {
+            // This was commented because item was not being used
+            // const item = manifest.querySelector(`item[id="${id}"]`);
             hrefs.push(
                 manifest.querySelector(`item[id="${id}"]`).getAttribute("href")
             );
         }
-
+        // console.log(spineIds);
+        // console.log(hrefs);
         return hrefs;
-    }
+    };
 
-    function generateXML(meta) {
-        processStatus.push("Creating target XML file");
+    const createXML = (meta) => {
+        console.log("createXML function start");
+        statusLog += "Creating target XML file\n";
 
-        const brailleChars = Array.from(convertTextToBraille(book, selectedLanguage));
-        const numRows = Math.ceil(brailleChars.length / 32);
+        let brailleText = textToBraille(book, selectedLanguage);
+        // console.log(brailleText);
 
         const doc = create({ version: "1.0", encoding: "UTF-8" });
         const pef = doc.ele("pef", {
@@ -116,6 +131,7 @@
         });
         const head = pef.ele("head");
         const metaHead = head.ele(meta);
+
         let body = pef.ele("body");
         let volume = body.ele("volume", {
             cols: "32",
@@ -126,41 +142,55 @@
         let section = volume.ele("section");
         let page = section.ele("page");
 
-        for (let i = 0; i < numRows; i++) {
-            const rowText = brailleChars.slice(i * 32, (i + 1) * 32).join("");
-            const row = page.ele("row");
+        const brailleChars = Array.from(brailleText);
+
+        while (brailleChars.length > 0) {
+            let rowText = brailleChars.splice(0, 32).join("");
+            let row = page.ele("row");
             row.txt(rowText);
         }
 
         const xmlOutput = doc.end({ prettyPrint: true });
         return xmlOutput;
-    }
+        // console.log(xmlOutput);
+    };
 
-    async function processZipEntry(zipEntry, parser) {
+    const processZipEntry = async (zipEntry, parser) => {
+        console.log("processZipEntry function start");
+
+        // console.log(zipEntry);
         const content = await zipEntry.async("string");
         let readableText = "";
-
+        // console.log(zipEntry.name);
         if (
             zipEntry.name.endsWith(".xhtml") ||
             zipEntry.name.endsWith(".html")
         ) {
-            readableText = parseXhtmlDocument(content);
+            readableText = parseXhtmlDoc(content);
+            // } else if (zipEntry.name.endsWith(".html")) {
+            //     readableText = parseHtmlDoc(content);
         }
-
+        // console.log(readableText);
         book += `${readableText}\n`;
-    }
+    };
 
-    function initiateDownload() {
-        const xmlOutput = generateXML(modifiedXmlString);
-        const file = new Blob([xmlOutput], { type: "application/xml" });
+    const downloadBook = () => {
+        console.log("downloadBook function start");
+        // console.log(book);
+        const xmlOutput = createXML(modifiedXmlString); // Get the XML content
+
+        const file = new Blob([xmlOutput], { type: "application/xml" }); // Set the MIME type as application/xml
+
         const element = document.createElement("a");
+
         element.href = URL.createObjectURL(file);
-        element.download = "book.pef";
+        element.download = "book.pef"; // Change the download filename to "book.pef"
         document.body.appendChild(element);
         element.click();
-    }
+    };
 
-    function parseXhtmlDocument(content) {
+    const parseXhtmlDoc = (content) => {
+        console.log("parseXhtml function start");
         const parser = new DOMParser();
         const xhtmlDoc = parser.parseFromString(
             content,
@@ -171,13 +201,27 @@
             .map((el) => el.textContent)
             .join(" ");
         return readableText;
-    }
+    };
+
+    // const parseHtmlDoc = (content) => {
+    //     // console.log("3.");
+    //     const parser = new DOMParser();
+    //     const htmlDoc = parser.parseFromString(
+    //         content,
+    //         "application/xhtml+xml"
+    //     );
+    //     const allElements = htmlDoc.body.getElementsByTagName("*");
+    //     const readableText = Array.from(allElements)
+    //         .map((el) => el.textContent)
+    //         .join(" ");
+    //     return readableText;
+    // };
 </script>
 
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
-            <CardTitle>Epub File Converter</CardTitle>
+            <CardTitle>Epub file OLD converter</CardTitle>
         </CardHeader>
         <CardBody>
             <Form>
@@ -194,39 +238,34 @@
                             <option value={language}>{language}</option>
                         {/each}
                     </Input>
-                    <Label for="epubFileInput">Select EPUB File:</Label>
+                    <Label for="epubFileInput">EPUB File:</Label>
                     <Input
                         type="file"
                         id="epubFileInput"
-                        on:change={handleUploadedFile}
+                        on:change={handleFileInput}
                         accept=".epub"
                     />
                 </FormGroup>
             </Form>
-            <Button color="primary" on:click={initiateDownload} disabled={!book}
+            <Button color="primary" on:click={downloadBook} disabled={!book}
                 >Download Book</Button
             >
         </CardBody>
     </Card>
     <br />
     <p class="epubVersion">
-        EPUB Version: {epubVersion}
+        Epub version: {epubVersion}
     </p>
     <p class="fileNumber">
-        Files with Text: {fileCount}
+        Files with text: {fileNumber}
     </p>
-    <!-- needs to be fixed -->
     <span class="statusLog">
-        Process Status:<br />
-        {#each processStatus as statusLine}
-            {statusLine}<br />
-        {/each}
+        Status: {statusLog}
     </span>
     <p class="language">
         Selected Language: {selectedLanguage}
     </p>
 </Container>
-
 
 <style>
     .statusLog {
