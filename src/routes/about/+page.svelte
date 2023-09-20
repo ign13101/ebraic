@@ -15,33 +15,53 @@
         const interval = setInterval(animateLoading, 100); // Adjust the interval time as needed
         return () => clearInterval(interval);
     });
+
+    let heart = "\u2665";
 </script>
 
 <Container>
-    <!-- Centered Content -->
+    <!-- Contenido centrado -->
     <div class="centered-content">
-        <!-- Main Content -->
-        <div class="logo">EBRAI⠯</div>
+        <!-- Contenido principal -->
+        <!-- <div class="logo">EBRAI⠯</div> -->
 
-        <!-- Loading Animation -->
-        <div class="loading-animation">
-            {loadingSymbols[currentSymbolIndex]}
-        </div>
-        <h2>What is EBRAIC?</h2>
-        <div class="text-focus">
-            EBRAIC is a web application developed to bridge the gap between
-            ebooks and visually impaired people. Allowing you to convert from
-            EPUB to PEF so that you can embosse physical books as well as read
-            these electronic books on refreshable Braille displays.
-        </div>
+        <!-- Animación de carga -->
+        <!-- <div class="animacion-carga">
+            {símbolosCarga[índiceSímboloActual]}
+        </div> -->
+        <br />
+        <br />
+        <br />
+        <h2>¿Qué es EBRAI<span class="lowered-text">⠯</span>?</h2>
+        <br />
+        <!-- <div class="text-focus"> -->
         <div>
-            Made with love using <SvelteIcon /> and <VercelIcon />.
+            EBRAI<span class="lowered-text">⠯</span> es un innovador proyecto de
+            Trabajo de Fin de Grado, una culminación académica en la etapa universitaria
+            en la que se aplican conocimientos adquiridos para crear soluciones reales.
+            Se enfoca en eliminar las barreras entre los libros electrónicos y las
+            personas con discapacidad visual. Permite convertir archivos EPUB a PEF,
+            facilitando la impresión de libros físicos en braille y la lectura de
+            estos libros electrónicos en pantallas de braille actualizables, promoviendo
+            así una experiencia de lectura inclusiva.
         </div>
+        <br />
         <div>
-            <h2>How does it work?</h2>
-            Ebraic is a multipurpose tool that handles epub files, extracts the metadata
-            and content of those epub files, then converts the readable text into
-            braille, and offers you a variety of ways to use your pef ebook
+            <h2>Objetivos del Proyecto</h2>
+            <br />
+            El proyecto EBRAI<span class="lowered-text">⠯</span> tiene como objetivos
+            principales la accesibilidad y la inclusión. Busca proporcionar a las
+            personas con discapacidad visual una herramienta que les permita acceder
+            a la literatura digital en braille de manera efectiva. Se busca simplificar
+            el proceso de conversión, garantizar la calidad y legibilidad de los
+            libros electrónicos en braille generados y promover la conciencia sobre
+            la accesibilidad en la literatura electrónica. Además, fomenta la colaboración
+            y el código abierto en el desarrollo, con la visión de crear un entorno
+            inclusivo y participativo en la era digital.
+        </div>
+        <br />
+        <div>
+            Hecho con {heart} usando <SvelteIcon /> y <VercelIcon />.
         </div>
     </div>
 </Container>
@@ -56,10 +76,11 @@
     } */
 
     .centered-content {
-        display: flex;
+        /* display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
+        text-align: center;
         /* width: 100%;
       height: 50vh; */
     }
@@ -74,6 +95,11 @@
     .loading-animation {
         font-size: 24px;
         padding-top: 20px;
+    }
+
+    .lowered-text {
+        display: inline-block;
+        transform: translateY(0.05em);
     }
 
     /* Additional styles for responsive design */

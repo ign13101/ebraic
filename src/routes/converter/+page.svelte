@@ -20,7 +20,7 @@
     let book = "";
     let epubVersion = "-";
     let fileCount = "-";
-    let processStatus = [];
+    let processStatus = "\nEsperando archivo EPUB";
     let modifiedXmlString;
     let selectedLanguage = Object.keys(languages)[0];
 
@@ -39,7 +39,7 @@
     }
 
     async function handleUploadedFile(event) {
-        processStatus.push("Starting...");
+        processStatus = "\nComenzando...\n";
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
 
@@ -50,32 +50,33 @@
         }
 
         generateXML(modifiedXmlString);
+        processStatus += "Listo para descargar\n";
     }
 
     async function processOpfEntry(zip, zipEntry, parser) {
-        processStatus.push("Accessing opf file");
+        processStatus += "Accediendo a archivo opf\n";
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
         const hrefs = parseOpfDocument(opfDoc);
 
         if (hrefs.length > 0) {
-            fileCount = `${hrefs.length} files found`;
+            fileCount = `${hrefs.length} archivos encontrados`;
         }
 
-        processStatus.push("Processing files with readable text");
+        processStatus += "Procesando archivos con texto legible\n";
 
         const processEntryPromises = hrefs.map(async (href) => {
-            const xhtmlEntry = zip.file(zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`));
+            const xhtmlEntry = zip.file(
+                zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`)
+            );
             await processZipEntry(xhtmlEntry, parser);
         });
 
         await Promise.all(processEntryPromises);
-
-        processStatus.push("Ready for download");
     }
 
     function parseOpfDocument(opfDoc) {
-        processStatus.push("Parsing opf file");
+        processStatus += "Analizando archivo opf\n";
         epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
         const xmlSerializer = new XMLSerializer();
@@ -104,9 +105,11 @@
     }
 
     function generateXML(meta) {
-        processStatus.push("Creating target XML file");
+        processStatus += "Creando archivo XML de destino\n";
 
-        const brailleChars = Array.from(convertTextToBraille(book, selectedLanguage));
+        const brailleChars = Array.from(
+            convertTextToBraille(book, selectedLanguage)
+        );
         const numRows = Math.ceil(brailleChars.length / 32);
 
         const doc = create({ version: "1.0", encoding: "UTF-8" });
@@ -177,7 +180,7 @@
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
-            <CardTitle>Epub File Converter</CardTitle>
+            <CardTitle>Conversor de archivos EPUB a PEF</CardTitle>
         </CardHeader>
         <CardBody>
             <Form>
@@ -194,7 +197,9 @@
                             <option value={language}>{language}</option>
                         {/each}
                     </Input>
-                    <Label for="epubFileInput">Select EPUB File:</Label>
+                    <Label for="epubFileInput"
+                        >Selecciona el archivo EPUB:</Label
+                    >
                     <Input
                         type="file"
                         id="epubFileInput"
@@ -204,29 +209,26 @@
                 </FormGroup>
             </Form>
             <Button color="primary" on:click={initiateDownload} disabled={!book}
-                >Download Book</Button
+                >Descargar libro en PEF</Button
             >
         </CardBody>
     </Card>
     <br />
     <p class="epubVersion">
-        EPUB Version: {epubVersion}
+        Versión EPUB: {epubVersion}
     </p>
     <p class="fileNumber">
-        Files with Text: {fileCount}
+        Archivos con texto legible: {fileCount}
     </p>
     <!-- needs to be fixed -->
     <span class="statusLog">
-        Process Status:<br />
-        {#each processStatus as statusLine}
-            {statusLine}<br />
-        {/each}
+        Estado de procesamiento:
+        {processStatus}
     </span>
     <p class="language">
-        Selected Language: {selectedLanguage}
+        Idioma seleccionado: {selectedLanguage}
     </p>
 </Container>
-
 
 <style>
     .statusLog {
