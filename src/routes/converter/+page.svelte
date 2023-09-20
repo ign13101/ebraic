@@ -20,9 +20,10 @@
     let book = "";
     let epubVersion = "-";
     let fileCount = "-";
-    let processStatus = "\nEsperando archivo EPUB";
+    let processStatus = "Esperando archivo EPUB";
     let modifiedXmlString;
     let selectedLanguage = Object.keys(languages)[0];
+    let xmlOutput;
 
     function convertTextToBraille(text, selectedLanguage) {
         console.log("convertTextToBraille function start");
@@ -39,7 +40,7 @@
     }
 
     async function handleUploadedFile(event) {
-        processStatus = "\nComenzando...\n";
+        processStatus = "Comenzando...\n";
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
 
@@ -49,7 +50,7 @@
             }
         }
 
-        generateXML(modifiedXmlString);
+        xmlOutput = generateXML(modifiedXmlString);
         processStatus += "Listo para descargar\n";
     }
 
@@ -76,9 +77,10 @@
     }
 
     function parseOpfDocument(opfDoc) {
-        processStatus += "Analizando archivo opf\n";
+        processStatus += "Procesando archivo opf\n";
         epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
+        processStatus += "Analizando metadatos\n";
         const xmlSerializer = new XMLSerializer();
         const xmlString = xmlSerializer.serializeToString(metadata);
 
@@ -128,7 +130,7 @@
         });
         let section = volume.ele("section");
         let page = section.ele("page");
-
+        processStatus += "Añadiendo texto al archivo de destino\n";
         for (let i = 0; i < numRows; i++) {
             const rowText = brailleChars.slice(i * 32, (i + 1) * 32).join("");
             const row = page.ele("row");
@@ -136,6 +138,7 @@
         }
 
         const xmlOutput = doc.end({ prettyPrint: true });
+        processStatus += "Archivo XML de destino completado\n";
         return xmlOutput;
     }
 
@@ -154,11 +157,12 @@
     }
 
     function initiateDownload() {
-        const xmlOutput = generateXML(modifiedXmlString);
+        // const xmlOutput = generateXML(modifiedXmlString);
+        const originalFileName = epubFile.name.replace(".epub", ".pef");
         const file = new Blob([xmlOutput], { type: "application/xml" });
         const element = document.createElement("a");
         element.href = URL.createObjectURL(file);
-        element.download = "book.pef";
+        element.download = originalFileName;
         document.body.appendChild(element);
         element.click();
     }
@@ -220,14 +224,14 @@
     <p class="fileNumber">
         Archivos con texto legible: {fileCount}
     </p>
-    <!-- needs to be fixed -->
-    <span class="statusLog">
-        Estado de procesamiento:
-        {processStatus}
-    </span>
     <p class="language">
         Idioma seleccionado: {selectedLanguage}
     </p>
+    
+        Estado de procesamiento: <br>
+        <span class="statusLog">
+        {processStatus}
+    </span>
 </Container>
 
 <style>

@@ -86,12 +86,12 @@
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
-            <CardTitle>Braille Text Translator</CardTitle>
+            <CardTitle>Traductor de Braille Unicode a Texto</CardTitle>
         </CardHeader>
         <CardBody>
             <Form>
                 <FormGroup>
-                    <Label for="languageInput">Select Language:</Label>
+                    <Label for="languageInput">Selecciona idioma:</Label>
                     <Input
                         type="select"
                         id="languageInput"
@@ -103,7 +103,7 @@
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="inputText">Input Text:</Label>
+                    <Label for="inputText">Texto de entrada (Braille):</Label>
                     <Input
                         type="textarea"
                         id="inputText"
@@ -113,7 +113,7 @@
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="outputText">Output Text (Braille):</Label>
+                    <Label for="outputText">Texto de salida:</Label>
                     <Input
                         type="textarea"
                         id="outputText"
@@ -124,7 +124,7 @@
                 </FormGroup>
             </Form>
             <Button class="btn btn-primary" on:click={translateText}
-                >Translate</Button
+                >Traducir</Button
             >
         </CardBody>
     </Card>
