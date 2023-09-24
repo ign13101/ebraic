@@ -18,6 +18,7 @@
 
     onMount(() => {
         console.log("hello");
+        
     });
 
     import dictionaries from "./dicts.js";
@@ -69,8 +70,7 @@
                 if (brailleChar == "\n") {
                     console.log("THIS IS THE CASE");
                     translatedCharacters.push(brailleChar + "");
-                }
-                else {
+                } else {
                     translatedCharacters.push(
                         dictionaries[selectedLanguage].default
                     );
@@ -109,7 +109,7 @@
                         id="inputText"
                         bind:value={inputText}
                         rows="4"
-                        placeholder="Enter text to translate"
+                        placeholder="Introduce el texto en Braille a traducir"
                     />
                 </FormGroup>
                 <FormGroup>
@@ -123,7 +123,7 @@
                     />
                 </FormGroup>
             </Form>
-            <Button class="btn btn-primary" on:click={translateText}
+            <Button color="dark" on:click={translateText}
                 >Traducir</Button
             >
         </CardBody>

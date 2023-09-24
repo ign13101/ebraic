@@ -212,7 +212,7 @@
                     />
                 </FormGroup>
             </Form>
-            <Button color="primary" on:click={initiateDownload} disabled={!book}
+            <Button color="dark" on:click={initiateDownload} disabled={!book}
                 >Descargar libro en PEF</Button
             >
         </CardBody>

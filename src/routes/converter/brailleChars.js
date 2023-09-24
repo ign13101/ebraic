@@ -1,6 +1,6 @@
 
 const languages = {
-    Spanish: {
+    Español: {
         // Spanish lowercase alphabet fixed
         a: "\u2801",
         b: "\u2803",
@@ -126,7 +126,7 @@ const languages = {
         default: "\u282C", // 8 dot full symbol for blank square
     },
 
-    English: {
+    Inglés: {
         // UEB
         // English lowercase alphabet
         a: "\u2801",

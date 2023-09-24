@@ -15,11 +15,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		
 		"braille": "^1.1.0",
 		"epubjs": "^0.3.93",
 		"jszip": "^3.10.1",
-		
+		"svelte-steps": "^2.4.1",
 		"sveltestrap": "^5.10.0",
 		"xmlbuilder2": "^3.0.2"
 	}

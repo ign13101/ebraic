@@ -1,5 +1,5 @@
 const dictionaries = {
-    Spanish: {
+    Español: {
         // Spanish lowercase alphabet fixed
         "\u2801": "a",
         "\u2803": "b",
@@ -119,7 +119,7 @@ const dictionaries = {
         default: "§",
     },
     
-    English: {
+    Inglés: {
         // English lowercase alphabet
         "\u2801": "a",
         "\u2803": "b",
