@@ -40,28 +40,17 @@
             Trabajo de Fin de Grado, una culminación académica en la etapa universitaria
             en la que se aplican conocimientos adquiridos para crear soluciones reales.
             Se enfoca en eliminar las barreras entre los libros electrónicos y las
-            personas con discapacidad visual. Permite convertir archivos EPUB a PEF,
-            facilitando la impresión de libros físicos en braille y la lectura de
-            estos libros electrónicos en pantallas de braille actualizables, promoviendo
+            personas con deficiencias visuales. Permite convertir libros electrónicos en formato EPUB a PEF,
+            facilitando la impresión de libros físicos en Braille y la lectura de
+            estos libros electrónicos en pantallas de Braille actualizables, promoviendo
             así una experiencia de lectura inclusiva.
+
         </div>
         <br />
-        <div>
-            <h2>Objetivos del Proyecto</h2>
-            <br />
-            El proyecto EBRAI<span class="lowered-text">⠯</span> tiene como objetivos
-            principales la accesibilidad y la inclusión. Busca proporcionar a las
-            personas con discapacidad visual una herramienta que les permita acceder
-            a la literatura digital en braille de manera efectiva. Se busca simplificar
-            el proceso de conversión, garantizar la calidad y legibilidad de los
-            libros electrónicos en braille generados y promover la conciencia sobre
-            la accesibilidad en la literatura electrónica. Además, fomenta la colaboración
-            y el código abierto en el desarrollo, con la visión de crear un entorno
-            inclusivo y participativo en la era digital.
-        </div>
+        
         <br />
         <div>
-            Hecho con {heart} usando <SvelteIcon /> y <VercelIcon />.
+            Hecho con <span class="bigText">{heart}</span> usando <SvelteIcon /> y <VercelIcon />.
         </div>
     </div>
 </Container>
@@ -100,6 +89,10 @@
     .lowered-text {
         display: inline-block;
         transform: translateY(0.05em);
+    }
+
+    .bigText {
+        font-size: larger;
     }
 
     /* Additional styles for responsive design */

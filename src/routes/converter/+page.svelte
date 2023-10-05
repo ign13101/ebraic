@@ -24,6 +24,7 @@
     let modifiedXmlString;
     let selectedLanguage = Object.keys(languages)[0];
     let xmlOutput;
+    let downloadReady = "No";
 
     function convertTextToBraille(text, selectedLanguage) {
         console.log("convertTextToBraille function start");
@@ -51,11 +52,12 @@
         }
 
         xmlOutput = generateXML(modifiedXmlString);
-        processStatus += "Listo para descargar\n";
+        // processStatus += "Listo para descargar\n";
+        downloadReady = "Sí";
     }
 
     async function processOpfEntry(zip, zipEntry, parser) {
-        processStatus += "Accediendo a archivo opf\n";
+        processStatus = "Accediendo a archivo opf\n";
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
         const hrefs = parseOpfDocument(opfDoc);
@@ -64,7 +66,7 @@
             fileCount = `${hrefs.length} archivos encontrados`;
         }
 
-        processStatus += "Procesando archivos con texto legible\n";
+        processStatus = "Procesando archivos\n";
 
         const processEntryPromises = hrefs.map(async (href) => {
             const xhtmlEntry = zip.file(
@@ -77,7 +79,7 @@
     }
 
     function parseOpfDocument(opfDoc) {
-        processStatus += "Procesando archivo opf\n";
+        processStatus = "Procesando archivo opf\n";
         epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
         processStatus += "Analizando metadatos\n";
@@ -107,7 +109,7 @@
     }
 
     function generateXML(meta) {
-        processStatus += "Creando archivo XML de destino\n";
+        processStatus = "Creando archivo XML\n";
 
         const brailleChars = Array.from(
             convertTextToBraille(book, selectedLanguage)
@@ -130,7 +132,7 @@
         });
         let section = volume.ele("section");
         let page = section.ele("page");
-        processStatus += "Añadiendo texto al archivo de destino\n";
+        processStatus = "Añadiendo texto al destino\n";
         for (let i = 0; i < numRows; i++) {
             const rowText = brailleChars.slice(i * 32, (i + 1) * 32).join("");
             const row = page.ele("row");
@@ -138,7 +140,7 @@
         }
 
         const xmlOutput = doc.end({ prettyPrint: true });
-        processStatus += "Archivo XML de destino completado\n";
+        processStatus = "XML de destino completado\n";
         return xmlOutput;
     }
 
@@ -189,7 +191,7 @@
         <CardBody>
             <Form>
                 <FormGroup>
-                    <Label for="languageInput" />
+                    <Label for="languageInput" > Selecciona el idioma de origen:</Label>
                     <Input
                         type="select"
                         id="languageInput"
@@ -218,24 +220,62 @@
         </CardBody>
     </Card>
     <br />
-    <p class="epubVersion">
+    <div class="stepLogging">
+        <div class="arrowBox">
+            <b>Idioma seleccionado:</b> <br>
+            {selectedLanguage}
+        </div>
+        <div class="arrowBox">
+            <b>Versión EPUB:</b> <br>
+            {epubVersion}
+        </div>
+        <div class="arrowBox">
+            <b>Archivos con texto legible:</b> <br>
+            {fileCount}
+        </div>
+        <div class="arrowBox">
+            <b>Estado:</b> <br>
+            <span class="statusLog">
+                {processStatus}
+            </span>
+        </div>
+        <div class="arrowBox">
+            <b>¿Listo para descarga?:</b>  <br>
+            {downloadReady}
+        </div>
+    </div>
+    <!-- <p class="epubVersion">
         Versión EPUB: {epubVersion}
     </p>
     <p class="fileNumber">
         Archivos con texto legible: {fileCount}
     </p>
     <p class="language">
-        Idioma seleccionado: {selectedLanguage}
-    </p>
-    
-        Estado de procesamiento: <br>
-        <span class="statusLog">
-        {processStatus}
-    </span>
+        
+    </p> -->
 </Container>
 
 <style>
     .statusLog {
         white-space: pre-wrap;
     }
+    .arrowBox {
+        position: relative;
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin: 0 10px;
+    }
+
+    .arrowBox:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent #ccc;
+    }
+
 </style>
