@@ -57,8 +57,9 @@
         <label for="fileToggle">Cargar desde archivo:</label>
         <input type="file" id="fileToggle" on:change={handleFileUpload} />
     </div>
-    <div>Cargar desde texto:</div>
-    <textarea bind:value={pefContent} rows="10" cols="40" />
+    <!-- <div>Cargar desde texto:</div> -->
+    <label for="fileContent">Cargar desde texto:</label>
+    <textarea id="fileContent" bind:value={pefContent} rows="10" cols="40" />
     <div class="buttonContainer">
         <button class="actionButton" on:click={parsePefContent}
             >Extraer filas</button
