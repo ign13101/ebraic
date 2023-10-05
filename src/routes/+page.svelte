@@ -15,6 +15,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>EBRAIC</title>
+</svelte:head>
+
 <Container>
   <!-- Centered Content -->
   <div class="centered-content">

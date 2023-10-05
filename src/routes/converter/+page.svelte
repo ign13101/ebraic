@@ -183,6 +183,10 @@
     }
 </script>
 
+<svelte:head>
+  <title>EBRAIC Conversor</title>
+</svelte:head>
+
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>

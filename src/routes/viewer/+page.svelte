@@ -47,6 +47,10 @@
     }
 </script>
 
+<svelte:head>
+  <title>EBRAIC Visor</title>
+</svelte:head>
+
 <Container>
     <h1 class="pb-2">Visor de Unicode Braille en archivos PEF</h1>
     <div class="toggleContainer">

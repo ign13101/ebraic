@@ -83,6 +83,10 @@
     };
 </script>
 
+<svelte:head>
+  <title>EBRAIC Traductor</title>
+</svelte:head>
+
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>

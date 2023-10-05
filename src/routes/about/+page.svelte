@@ -19,6 +19,10 @@
     let heart = "\u2665";
 </script>
 
+<svelte:head>
+  <title>EBRAIC Descubre</title>
+</svelte:head>
+
 <Container>
     <!-- Contenido centrado -->
     <div class="centered-content">
