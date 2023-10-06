@@ -20,14 +20,13 @@
     let book = "";
     let epubVersion = "-";
     let fileCount = "-";
-    let processStatus = "Esperando archivo EPUB";
+    let processStatus = "Awaiting EPUB file";
     let modifiedXmlString;
     let selectedLanguage = Object.keys(languages)[0];
     let xmlOutput;
     let downloadReady = "No";
 
     function convertTextToBraille(text, selectedLanguage) {
-        console.log("convertTextToBraille function start");
         const brailleText = Array.from(text, (char) => {
             if (char === "\n") {
                 return "\u000A"; // Handle new line character here
@@ -41,7 +40,7 @@
     }
 
     async function handleUploadedFile(event) {
-        processStatus = "Comenzando...\n";
+        processStatus = "Starting...\n";
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
 
@@ -56,16 +55,16 @@
     }
 
     async function processOpfEntry(zip, zipEntry, parser) {
-        processStatus = "Accediendo a archivo opf\n";
+        processStatus = "Accessing OPF file\n";
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
         const hrefs = parseOpfDocument(opfDoc);
 
         if (hrefs.length > 0) {
-            fileCount = `${hrefs.length} archivos encontrados`;
+            fileCount = `${hrefs.length} files found`;
         }
 
-        processStatus = "Procesando archivos\n";
+        processStatus = "Processing files\n";
 
         const processEntryPromises = hrefs.map(async (href) => {
             const xhtmlEntry = zip.file(
@@ -78,10 +77,10 @@
     }
 
     function parseOpfDocument(opfDoc) {
-        processStatus = "Procesando archivo opf\n";
+        processStatus = "Processing OPF file\n";
         epubVersion = opfDoc.querySelector("package").getAttribute("version");
         const metadata = opfDoc.querySelector("metadata");
-        processStatus += "Analizando metadatos\n";
+        processStatus += "Analyzing metadata\n";
         const xmlSerializer = new XMLSerializer();
         const xmlString = xmlSerializer.serializeToString(metadata);
 
@@ -108,7 +107,7 @@
     }
 
     function generateXML(meta) {
-        processStatus = "Creando archivo XML\n";
+        processStatus = "Creating XML file\n";
 
         const brailleChars = Array.from(
             convertTextToBraille(book, selectedLanguage)
@@ -131,7 +130,7 @@
         });
         let section = volume.ele("section");
         let page = section.ele("page");
-        processStatus = "Añadiendo texto al destino\n";
+        processStatus = "Adding text to target\n";
         for (let i = 0; i < numRows; i++) {
             const rowText = brailleChars.slice(i * 32, (i + 1) * 32).join("");
             const row = page.ele("row");
@@ -139,7 +138,7 @@
         }
 
         const xmlOutput = doc.end({ prettyPrint: true });
-        processStatus = "XML de destino completado\n";
+        processStatus = "XML file completed\n";
         return xmlOutput;
     }
 
@@ -182,19 +181,19 @@
 </script>
 
 <svelte:head>
-    <title>EBRAIC Conversor</title>
+    <title>EBRAIC Converter</title>
 </svelte:head>
 
 <Container class="mx-auto mt-4">
     <Card>
         <CardHeader>
-            <CardTitle>Conversor de archivos EPUB a PEF</CardTitle>
+            <CardTitle>EPUB to PEF file converter</CardTitle>
         </CardHeader>
         <CardBody>
             <Form>
                 <FormGroup>
                     <Label for="languageInput">
-                        Selecciona el idioma de origen:</Label
+                        Select input file:</Label
                     >
                     <Input
                         type="select"
@@ -208,7 +207,7 @@
                         {/each}
                     </Input>
                     <Label for="epubFileInput"
-                        >Selecciona el archivo EPUB:</Label
+                        >Select EPUB file:</Label
                     >
                     <Input
                         type="file"
@@ -219,32 +218,32 @@
                 </FormGroup>
             </Form>
             <Button color="dark" on:click={initiateDownload} disabled={!book}
-                >Descargar libro en PEF</Button
+                >Download PEF book</Button
             >
         </CardBody>
     </Card>
     <br />
     <div class="stepLogging">
         <div class="arrowBox">
-            <b>Idioma seleccionado:</b> <br />
+            <b>Selected language:</b> <br />
             {selectedLanguage}
         </div>
         <div class="arrowBox">
-            <b>Versión EPUB:</b> <br />
+            <b>EPUB version:</b> <br />
             {epubVersion}
         </div>
         <div class="arrowBox">
-            <b>Archivos con texto legible:</b> <br />
+            <b>Files with readable text:</b> <br />
             {fileCount}
         </div>
         <div class="arrowBox">
-            <b>Estado:</b> <br />
+            <b>Status:</b> <br />
             <span class="statusLog">
                 {processStatus}
             </span>
         </div>
         <div class="arrowBox">
-            <b>¿Listo para descarga?:</b> <br />
+            <b>Ready for download?:</b> <br />
             {downloadReady}
         </div>
     </div>

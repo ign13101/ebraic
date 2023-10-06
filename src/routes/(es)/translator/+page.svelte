@@ -16,31 +16,19 @@
     let outputText = "";
 
     import dictionaries from "./dicts.js";
-    let selectedLanguage = Object.keys(dictionaries)[0]; // Set the default language
+    let selectedLanguage = Object.keys(dictionaries)[0];
 
     let translateText = async () => {
         // Split the inputText into individual Braille characters
         let brailleCharacters = inputText.split("");
-
-        // Convert Braille characters to their corresponding language characters
         let translatedCharacters = [];
         for (let i = 0; i < brailleCharacters.length; i++) {
             let brailleChar = brailleCharacters[i];
             let nextBrailleChar = brailleCharacters[i + 1];
-
-            console.log("Processing:", brailleChar, nextBrailleChar);
-
             if (
                 brailleChar + nextBrailleChar in
                 dictionaries[selectedLanguage]
             ) {
-                console.log("Found compound:", brailleChar + nextBrailleChar);
-                console.log(
-                    "Resulting compound: " +
-                        dictionaries[selectedLanguage][
-                            brailleChar + nextBrailleChar
-                        ]
-                );
                 translatedCharacters.push(
                     dictionaries[selectedLanguage][
                         brailleChar + nextBrailleChar
@@ -48,19 +36,11 @@
                 );
                 i++; // Skip the next character since it's part of a compound character
             } else if (brailleChar in dictionaries[selectedLanguage]) {
-                console.log(
-                    "Found:",
-                    brailleChar +
-                        " " +
-                        dictionaries[selectedLanguage][brailleChar]
-                );
                 translatedCharacters.push(
                     dictionaries[selectedLanguage][brailleChar]
                 );
             } else {
-                console.log("Not found:", brailleChar);
                 if (brailleChar == "\n") {
-                    console.log("THIS IS THE CASE");
                     translatedCharacters.push(brailleChar + "");
                 } else {
                     translatedCharacters.push(

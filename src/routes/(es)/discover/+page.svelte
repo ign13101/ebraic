@@ -43,6 +43,12 @@
             y complejidad.
             <br />
             <br />
+            Versión en inglés:
+            <a href="https://ebraic.vercel.app/en"
+                >https://ebraic.vercel.app/en</a
+            >
+            <br />
+            <br />
             Puedes encontrar más información en:
             <a target="_blank" href="https://github.com/ign13101/ebraic"
                 >https://github.com/ign13101/ebraic</a

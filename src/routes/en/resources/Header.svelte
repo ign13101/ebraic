@@ -11,11 +11,11 @@
             <a href="/" class="linkBrand"><b> <span class="elevated-text">EBRAI</span>⠯</b></a>
         </Col>
         <Col class="col-md-auto d-flex justify-content-md-end mr-md-4">
-            <a href="/" class="link">Inicio</a>
-            <a href="/converter" class="link">Conversor</a>
-            <a href="/translator" class="link">Traductor</a>
-            <a href="/viewer" class="link">Visor</a>
-            <a href="/about" class="link">Descubre</a>
+            <a href="/en/" class="link">Home</a>
+            <a href="/en/converter" class="link">Converter</a>
+            <a href="/en/translator" class="link">Translator</a>
+            <a href="/en/viewer" class="link">Viewer</a>
+            <a href="/en/discover" class="link">Discover</a>
         </Col>
     </Row>
 </header>
