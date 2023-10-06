@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-    <title>EBRAIC Descubre</title>
+    <title>EBRAIC Discover</title>
 </svelte:head>
 
 <Container>
