@@ -43,13 +43,11 @@
         processStatus = "Comenzando...\n";
         epubFile = event.target.files[0];
         const zip = await JSZip.loadAsync(epubFile);
-
         for (const zipEntry of Object.values(zip.files)) {
             if (zipEntry.name.endsWith(".opf")) {
                 await processOpfEntry(zip, zipEntry, new DOMParser());
             }
         }
-
         xmlOutput = generateXML(modifiedXmlString);
         downloadReady = "Sí";
     }
@@ -59,20 +57,16 @@
         const content = await zip.file(zipEntry.name).async("string");
         const opfDoc = parser.parseFromString(content, "text/xml");
         const hrefs = parseOpfDocument(opfDoc);
-
         if (hrefs.length > 0) {
             fileCount = `${hrefs.length} archivos encontrados`;
         }
-
         processStatus = "Procesando archivos\n";
-
         const processEntryPromises = hrefs.map(async (href) => {
             const xhtmlEntry = zip.file(
                 zipEntry.name.replace(/^(.*\/)?[^/]*$/, `$1${href}`)
             );
             await processZipEntry(xhtmlEntry, parser);
         });
-
         await Promise.all(processEntryPromises);
     }
 
@@ -83,37 +77,30 @@
         processStatus += "Analizando metadatos\n";
         const xmlSerializer = new XMLSerializer();
         const xmlString = xmlSerializer.serializeToString(metadata);
-
         modifiedXmlString = xmlString
             .replace(/<metadata/g, "<meta")
             .replace(/<\/metadata>/g, "</meta>");
-
         const spine = opfDoc.querySelector("spine");
         const manifest = opfDoc.querySelector("manifest");
         const spineIds = [];
         const hrefs = [];
-
         for (const item of spine.querySelectorAll("itemref")) {
             spineIds.push(item.getAttribute("idref"));
         }
-
         for (const id of spineIds) {
             hrefs.push(
                 manifest.querySelector(`item[id="${id}"]`).getAttribute("href")
             );
         }
-
         return hrefs;
     }
 
     function generateXML(meta) {
         processStatus = "Creando archivo XML\n";
-
         const brailleChars = Array.from(
             convertTextToBraille(book, selectedLanguage)
         );
         const numRows = Math.ceil(brailleChars.length / 32);
-
         const doc = create({ version: "1.0", encoding: "UTF-8" });
         const pef = doc.ele("pef", {
             version: "2008-1",
@@ -136,7 +123,6 @@
             const row = page.ele("row");
             row.txt(rowText);
         }
-
         const xmlOutput = doc.end({ prettyPrint: true });
         processStatus = "XML de destino completado\n";
         return xmlOutput;
@@ -145,14 +131,12 @@
     async function processZipEntry(zipEntry, parser) {
         const content = await zipEntry.async("string");
         let readableText = "";
-
         if (
             zipEntry.name.endsWith(".xhtml") ||
             zipEntry.name.endsWith(".html")
         ) {
             readableText = parseXhtmlDocument(content);
         }
-
         book += `${readableText}\n`;
     }
 
@@ -178,6 +162,7 @@
             .join(" ");
         return readableText;
     }
+    
 </script>
 
 <svelte:head>

@@ -12,23 +12,21 @@
         parsePefContent();
     });
 
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            pefContent = e.target.result;
+            parsePefContent();
+        };
+        reader.readAsText(file);
+    }
+
     function parsePefContent() {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(pefContent, "text/xml");
         const rowElements = xmlDoc.querySelectorAll("row");
         rows = Array.from(rowElements, (row) => row.textContent);
-    }
-
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            pefContent = e.target.result;
-            parsePefContent();
-        };
-
-        reader.readAsText(file);
     }
 
     function copyToClipboard() {
