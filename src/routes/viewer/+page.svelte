@@ -48,7 +48,7 @@
 </script>
 
 <svelte:head>
-  <title>EBRAIC Visor</title>
+    <title>EBRAIC Visor</title>
 </svelte:head>
 
 <Container>
@@ -57,7 +57,6 @@
         <label for="fileToggle">Cargar desde archivo:</label>
         <input type="file" id="fileToggle" on:change={handleFileUpload} />
     </div>
-    <!-- <div>Cargar desde texto:</div> -->
     <label for="fileContent">Cargar desde texto:</label>
     <textarea id="fileContent" bind:value={pefContent} rows="10" cols="40" />
     <div class="buttonContainer">
@@ -91,7 +90,7 @@
     .buttonContainer {
         display: flex;
         justify-content: center;
-        gap: 10px; /* Adds space between buttons */
+        gap: 10px;
     }
 
     textarea {
@@ -100,17 +99,17 @@
     }
 
     .actionButton {
-        flex: 1; /* Each button takes up equal space */
+        flex: 1;
         padding: 10px;
         background-color: #212529;
         color: white;
         border: none;
         cursor: pointer;
-        transition: background-color 0.2s ease-in-out; /* Add transition */
+        transition: background-color 0.2s ease-in-out;
     }
 
     .actionButton:hover {
-        background-color: #52585f; /* Lighter shade on hover */
+        background-color: #52585f;
     }
 
     .rows-container {

@@ -1,7 +1,6 @@
 
 const languages = {
     Español: {
-        // Spanish lowercase alphabet fixed
         a: "\u2801",
         b: "\u2803",
         c: "\u2809",
@@ -29,7 +28,6 @@ const languages = {
         y: "\u283D",
         z: "\u2835",
 
-        // Spanish uppercase alphabet fixed
         A: "\u2828\u2801",
         B: "\u2828\u2803",
         C: "\u2828\u2809",
@@ -57,7 +55,6 @@ const languages = {
         Y: "\u2828\u283D",
         Z: "\u2828\u2835",
 
-        // Spanish special characters fixed
         á: "\u2837",
         é: "\u283F",
         í: "\u280C",
@@ -74,7 +71,6 @@ const languages = {
         Ñ: "\u2828\u283B",
         ç: "\u282F",
 
-        // Numbers fixed
         "0": "\u283C\u281A",
         "1": "\u283C\u2801",
         "2": "\u283C\u2803",
@@ -86,49 +82,47 @@ const languages = {
         "8": "\u283C\u2813",
         "9": "\u283C\u280A",
 
-        // Common symbols
-        " ": "\u2800", // Space fixed?
+        " ": "\u2800",
         " ": "\u2800",
-        ".": "\u2804", // Period fixed
-        ",": "\u2802", // Comma fixed
-        ";": "\u2806", // Semicolon fixed
-        ":": "\u2812", // Colon fixed
-        "!": "\u2816", // Exclamation Mark fixed
-        "¡": "\u2816", // Exclamation Mark fixed
-        "?": "\u2822", // Question Mark fixed
-        "¿": "\u2822", // Question Mark fixed
-        "'": "\u2820\u2826", // Apostrophe fixed
-        '"': "\u2826", // Quotation Mark fixed
+        ".": "\u2804",
+        ",": "\u2802",
+        ";": "\u2806",
+        ":": "\u2812",
+        "!": "\u2816",
+        "¡": "\u2816",
+        "?": "\u2822",
+        "¿": "\u2822",
+        "'": "\u2820\u2826",
+        '"': "\u2826",
         "‘": "\u2820\u2826",
         "”": "\u2826",
-        "`": "\u2820\u2804", // Apostrophe fixed modified
-        "-": "\u2824", // Hyphen fixed
+        "`": "\u2820\u2804",
+        "-": "\u2824",
         "–": "\u2824",
-        "_": "\u2824\u2824", // Underscore fixed
-        "(": "\u2823", // Left Parenthesis fixed
-        ")": "\u281C", // Right Parenthesis fixed
-        "[": "\u2810\u2837", // Left Square Bracket fixed modified
-        "]": "\u2838\u283E", // Right Square Bracket fixed modified
-        "{": "\u2810\u2807", // Open Curly Braces fixed
-        "}": "\u2838\u2802", // Close Curly Braces fixed
-        "/": "\u2820\u2802", // Slash fixed
-        "\\": "\u2810\u2804", // Backwards Slash fixed
-        "@": "\u2810", // At Sign fixed
-        "#": "\u283C", // Hash Sign fixed
-        "*": "\u2814", // Asterisk fixed
-        "+": "\u282C", // Plus Sign fixed
-        "=": "\u2836", // Equal Sign fixed
+        "_": "\u2824\u2824",
+        "(": "\u2823",
+        ")": "\u281C",
+        "[": "\u2810\u2837",
+        "]": "\u2838\u283E",
+        "{": "\u2810\u2807",
+        "}": "\u2838\u2802",
+        "/": "\u2820\u2802",
+        "\\": "\u2810\u2804",
+        "@": "\u2810",
+        "#": "\u283C",
+        "*": "\u2814",
+        "+": "\u282C",
+        "=": "\u2836",
         "\\n": "\u2832",
-        "%": "\u2838\u2834", // Percentage sign fixed
+        "%": "\u2838\u2834",
         "&": "\u2820\u282F",
         "§": "\u282C",
-        "©": "\u2823\u2828\u2809\u281C", // Copyright sign fixed
+        "©": "\u2823\u2828\u2809\u281C",
         default: "\u282C", // 8 dot full symbol for blank square
     },
 
     Inglés: {
         // UEB
-        // English lowercase alphabet
         a: "\u2801",
         b: "\u2803",
         c: "\u2809",
@@ -156,7 +150,6 @@ const languages = {
         y: "\u283D",
         z: "\u2835",
 
-        // English uppercase alphabet
         A: "\u2828\u2801",
         B: "\u2828\u2803",
         C: "\u2828\u2809",
@@ -184,7 +177,6 @@ const languages = {
         Y: "\u2828\u283D",
         Z: "\u2828\u2835",
 
-        // English numbers
         "0": "\u283C\u281A",
         "1": "\u283C\u2801",
         "2": "\u283C\u2803",
@@ -196,7 +188,6 @@ const languages = {
         "8": "\u283C\u2813",
         "9": "\u283C\u280A",
 
-        // English common symbols
         " ": "\u2800",
         " ": "\u2800",
         ".": "\u2804",
@@ -212,7 +203,7 @@ const languages = {
         "`": "\u2820\u2804",
         "‘": "\u2820\u2826",
         "”": "\u2826",
-        "-": "\u2824", 
+        "-": "\u2824",
         "–": "\u2824",
         "_": "\u2828\u2824",
         "(": "\u2810\u2823",
@@ -228,21 +219,19 @@ const languages = {
         "*": "\u2810\u2814",
         "+": "\u2810\u2816",
         "=": "\u2810\u2836",
-        // "\\n": "\u2832",
         " ": "\u2800",
+        // "\\n": "\u2832",
         // " ": "\u2800", 
         "\\n": "\u2832",
         "%": "\u2828\u2834",
         "&": "\u2808\u282F",
         "§": "\u282C",
-        "©": "\u2818\u2809", 
+        "©": "\u2818\u2809",
 
         default: "\u282C",
 
     },
 
 };
-
-// console.log(languages);
 
 export default languages;

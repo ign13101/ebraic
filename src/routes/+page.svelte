@@ -10,7 +10,7 @@
   }
 
   onMount(() => {
-    const interval = setInterval(animateLoading, 100); // Adjust the interval time as needed
+    const interval = setInterval(animateLoading, 100);
     return () => clearInterval(interval);
   });
 </script>
@@ -20,12 +20,8 @@
 </svelte:head>
 
 <Container>
-  <!-- Centered Content -->
   <div class="centered-content">
-    <!-- Main Content -->
     <div class="logo">EBRAI⠯</div>
-
-    <!-- Loading Animation -->
     <div class="loading-animation">
       {loadingSymbols[currentSymbolIndex]}
     </div>
@@ -51,18 +47,11 @@
 </Container>
 
 <style>
-  /* Add your styles here */
-  /* * {
-    outline: 1px solid red;
-  } */
-
   .centered-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* width: 100%;
-    height: 50vh; */
   }
 
   .logo {
@@ -77,14 +66,15 @@
     padding-top: 20px;
   }
 
+  .lowered-text {
+    display: inline-block;
+    transform: translateY(0.05em);
+  }
+
   /* Additional styles for responsive design */
   @media (max-width: 768px) {
     .centered-content {
       padding: 20px;
     }
-  }
-  .lowered-text {
-    display: inline-block;
-    transform: translateY(0.05em);
   }
 </style>

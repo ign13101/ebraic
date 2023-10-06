@@ -30,7 +30,7 @@
         console.log("convertTextToBraille function start");
         const brailleText = Array.from(text, (char) => {
             if (char === "\n") {
-                return "\u000A"; // Handle new line character here, replace with desired Braille representation
+                return "\u000A"; // Handle new line character here
             }
             return (
                 languages[selectedLanguage][char] ||
@@ -52,7 +52,6 @@
         }
 
         xmlOutput = generateXML(modifiedXmlString);
-        // processStatus += "Listo para descargar\n";
         downloadReady = "Sí";
     }
 
@@ -159,7 +158,6 @@
     }
 
     function initiateDownload() {
-        // const xmlOutput = generateXML(modifiedXmlString);
         const originalFileName = epubFile.name.replace(".epub", ".pef");
         const file = new Blob([xmlOutput], { type: "application/xml" });
         const element = document.createElement("a");
@@ -184,7 +182,7 @@
 </script>
 
 <svelte:head>
-  <title>EBRAIC Conversor</title>
+    <title>EBRAIC Conversor</title>
 </svelte:head>
 
 <Container class="mx-auto mt-4">
@@ -195,7 +193,9 @@
         <CardBody>
             <Form>
                 <FormGroup>
-                    <Label for="languageInput" > Selecciona el idioma de origen:</Label>
+                    <Label for="languageInput">
+                        Selecciona el idioma de origen:</Label
+                    >
                     <Input
                         type="select"
                         id="languageInput"
@@ -226,37 +226,28 @@
     <br />
     <div class="stepLogging">
         <div class="arrowBox">
-            <b>Idioma seleccionado:</b> <br>
+            <b>Idioma seleccionado:</b> <br />
             {selectedLanguage}
         </div>
         <div class="arrowBox">
-            <b>Versión EPUB:</b> <br>
+            <b>Versión EPUB:</b> <br />
             {epubVersion}
         </div>
         <div class="arrowBox">
-            <b>Archivos con texto legible:</b> <br>
+            <b>Archivos con texto legible:</b> <br />
             {fileCount}
         </div>
         <div class="arrowBox">
-            <b>Estado:</b> <br>
+            <b>Estado:</b> <br />
             <span class="statusLog">
                 {processStatus}
             </span>
         </div>
         <div class="arrowBox">
-            <b>¿Listo para descarga?:</b>  <br>
+            <b>¿Listo para descarga?:</b> <br />
             {downloadReady}
         </div>
     </div>
-    <!-- <p class="epubVersion">
-        Versión EPUB: {epubVersion}
-    </p>
-    <p class="fileNumber">
-        Archivos con texto legible: {fileCount}
-    </p>
-    <p class="language">
-        
-    </p> -->
 </Container>
 
 <style>
@@ -281,5 +272,4 @@
         border-style: solid;
         border-color: transparent transparent transparent #ccc;
     }
-
 </style>

@@ -1,5 +1,5 @@
 <script>
-  import Header from "./Header.svelte";
+  import Header from "./resources/Header.svelte";
   import { page } from "$app/stores";
   // let pathname = $page.url.pathname;
   

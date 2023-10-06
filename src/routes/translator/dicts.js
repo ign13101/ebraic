@@ -1,6 +1,6 @@
 const dictionaries = {
     Español: {
-        // Spanish lowercase alphabet fixed
+
         "\u2801": "a",
         "\u2803": "b",
         "\u2809": "c",
@@ -28,7 +28,6 @@ const dictionaries = {
         "\u283D": "y",
         "\u2835": "z",
 
-        // Spanish uppercase alphabet fixed
         "\u2828\u2801": "A",
         "\u2828\u2803": "B",
         "\u2828\u2809": "C",
@@ -56,7 +55,6 @@ const dictionaries = {
         "\u2828\u283D": "Y",
         "\u2828\u2835": "Z",
 
-        // Spanish special characters fixed
         "\u2837": "á",
         "\u283F": "é",
         "\u280C": "í",
@@ -73,7 +71,6 @@ const dictionaries = {
         "\u2828\u283B": "Ñ",
         "\u282F": "ç",
 
-        // Numbers fixed
         "\u283C\u281A": "0",
         "\u283C\u2801": "1",
         "\u283C\u2803": "2",
@@ -85,42 +82,41 @@ const dictionaries = {
         "\u283C\u2813": "8",
         "\u283C\u280A": "9",
 
-        // Common symbols
-        "\u2800": " ", // Space fixed?
-        "\u2804": ".", // Period fixed
-        "\u2802": ",", // Comma fixed
-        "\u2806": ";", // Semicolon fixed
-        "\u2812": ":", // Colon fixed
-        "\u2816": "!", // Exclamation Mark fixed
-        "\u2822": "?", // Question Mark fixed
-        "\u2820\u2826": "'", // Apostrophe fixed
-        "\u2826": '"', // Quotation Mark fixed
-        "\u2820\u2804": "`", // Apostrophe fixed modified
-        "\u2824": "-", // Hyphen fixed
-        "\u2824\u2824": "_", // Underscore fixed
-        "\u2823": "(", // Left Parenthesis fixed
-        "\u281C": ")", // Right Parenthesis fixed
-        "\u2810\u2837": "[", // Left Square Bracket fixed modified
-        "\u2838\u283E": "]", // Right Square Bracket fixed modified
-        "\u2810\u2807": "{", // Open Curly Braces fixed
-        "\u2838\u2802": "}", // Close Curly Braces fixed
-        "\u2820\u2802": "/", // Slash fixed
-        "\u2810\u2804": "\\", // Backwards Slash fixed
-        "\u2810": "@", // At Sign fixed
-        "\u283C": "#", // Hash Sign
-        "\u2814": "*", // Asterisk fixed
-        "\u282C": "+", // Plus Sign fixed
-        "\u2836": "=", // Equal Sign fixed
+        "\u2800": " ",
+        "\u2804": ".",
+        "\u2802": ",",
+        "\u2806": ";",
+        "\u2812": ":",
+        "\u2816": "!",
+        "\u2822": "?",
+        "\u2820\u2826": "'",
+        "\u2826": '"',
+        "\u2820\u2804": "`",
+        "\u2824": "-",
+        "\u2824\u2824": "_",
+        "\u2823": "(",
+        "\u281C": ")",
+        "\u2810\u2837": "[",
+        "\u2838\u283E": "]",
+        "\u2810\u2807": "{",
+        "\u2838\u2802": "}",
+        "\u2820\u2802": "/",
+        "\u2810\u2804": "\\",
+        "\u2810": "@",
+        "\u283C": "#",
+        "\u2814": "*",
+        "\u282C": "+",
+        "\u2836": "=",
         "\u2832": "\\n",
-        "\u2838\u2834": "%", // Percentage sign fixed
+        "\u2838\u2834": "%",
         "\u2820\u282F": "&",
-        "\u2823\u2828\u2809\u281C": "©", // Copyright sign fixed
+        "\u2823\u2828\u2809\u281C": "©",
         "\u282C": "§", // 8 dot full symbol for blank square
         default: "§",
     },
-    
+
     Inglés: {
-        // English lowercase alphabet
+
         "\u2801": "a",
         "\u2803": "b",
         "\u2809": "c",
@@ -148,7 +144,6 @@ const dictionaries = {
         "\u283D": "y",
         "\u2835": "z",
 
-        // English uppercase alphabet
         "\u2828\u2801": "A",
         "\u2828\u2803": "B",
         "\u2828\u2809": "C",
@@ -176,7 +171,6 @@ const dictionaries = {
         "\u2828\u283D": "Y",
         "\u2828\u2835": "Z",
 
-        // English numbers
         "\u283C\u281A": "0",
         "\u283C\u2801": "1",
         "\u283C\u2803": "2",
@@ -219,13 +213,8 @@ const dictionaries = {
         "\u2808\u282F": "&",
         "\u282C": "§",
         "\u2818\u2809": "©",
-        // " ": " ",
-        // " ": " ",
-        // " ⠀": " ",
-        
         default: "§",
 
-        
     },
 };
 

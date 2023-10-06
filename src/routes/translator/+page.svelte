@@ -11,20 +11,12 @@
         CardHeader,
         Button,
     } from "sveltestrap";
-    import { onMount } from "svelte";
 
     let inputText = "";
     let outputText = "";
 
-    onMount(() => {
-        console.log("hello");
-        
-    });
-
     import dictionaries from "./dicts.js";
-    let selectedLanguage = Object.keys(dictionaries)[0]; // Set the default language here
-
-    // ... Your dictionaries object and textToBraille function here ...
+    let selectedLanguage = Object.keys(dictionaries)[0]; // Set the default language
 
     let translateText = async () => {
         // Split the inputText into individual Braille characters
@@ -84,7 +76,7 @@
 </script>
 
 <svelte:head>
-  <title>EBRAIC Traductor</title>
+    <title>EBRAIC Traductor</title>
 </svelte:head>
 
 <Container class="mx-auto mt-4">
@@ -127,13 +119,7 @@
                     />
                 </FormGroup>
             </Form>
-            <Button color="dark" on:click={translateText}
-                >Traducir</Button
-            >
+            <Button color="dark" on:click={translateText}>Traducir</Button>
         </CardBody>
     </Card>
 </Container>
-
-<style>
-    /* Add your custom styles here */
-</style>
