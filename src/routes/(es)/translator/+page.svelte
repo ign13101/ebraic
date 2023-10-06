@@ -19,7 +19,6 @@
     let selectedLanguage = Object.keys(dictionaries)[0];
 
     let translateText = async () => {
-        // Split the inputText into individual Braille characters
         let brailleCharacters = inputText.split("");
         let translatedCharacters = [];
         for (let i = 0; i < brailleCharacters.length; i++) {
@@ -34,7 +33,7 @@
                         brailleChar + nextBrailleChar
                     ]
                 );
-                i++; // Skip the next character since it's part of a compound character
+                i++; 
             } else if (brailleChar in dictionaries[selectedLanguage]) {
                 translatedCharacters.push(
                     dictionaries[selectedLanguage][brailleChar]
@@ -49,10 +48,9 @@
                 }
             }
         }
-
-        // Join the translated characters to form the outputText
         outputText = translatedCharacters.join("");
     };
+    
 </script>
 
 <svelte:head>
