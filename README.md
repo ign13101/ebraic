@@ -1,5 +1,5 @@
 ## EBRAIC
-EBRAIC is a web application that can convert ebooks in EPUB format to PEF files. It is an End of Degree project by a student of Escuela Técnica Superior de Ingeniería Informática of the University of Seville.
+EBRAIC is a web application that can convert ebooks in EPUB format to PEF files. It is an End of Degree project by a student of Escuela Técnica Superior de Ingeniería Informática at the University of Seville.
 
 # Abstract
 In our digital age, electronic books have revolutionized access to knowledge. However, individuals with visual impairments face significant barriers to accessing this source of information. This project addresses the urgent need to develop a tool that converts electronic books into Braille, ensuring an inclusive reading experience. This project focuses on universal accessibility, open-source principles, inclusion, technological innovation, and cultural diversity.
