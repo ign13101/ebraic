@@ -1,6 +1,5 @@
 const dictionaries = {
     Spanish: {
-
         "\u2801": "a",
         "\u2803": "b",
         "\u2809": "c",

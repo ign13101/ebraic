@@ -162,7 +162,6 @@
             .join(" ");
         return readableText;
     }
-    
 </script>
 
 <svelte:head>

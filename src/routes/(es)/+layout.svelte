@@ -1,6 +1,5 @@
 <script>
   import Header from "./resources/Header.svelte";
-  
 </script>
 
 <svelte:head>
@@ -11,7 +10,7 @@
 </svelte:head>
 
 <main>
-    <Header />
+  <Header />
 
-    <slot class="slot" />
+  <slot class="slot" />
 </main>

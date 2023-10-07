@@ -27,7 +27,6 @@
             pefContent = e.target.result;
             parsePefContent();
         };
-
         reader.readAsText(file);
     }
 
@@ -39,10 +38,7 @@
                 alert("Rows copied to the clipboard");
             })
             .catch((err) => {
-                console.error(
-                    "Couldn't copy rows to the clipboard: ",
-                    err
-                );
+                console.error("Couldn't copy rows to the clipboard: ", err);
             });
     }
 </script>
@@ -67,7 +63,6 @@
             >Copy rows to clipboard</button
         >
     </div>
-
     <div class="rows-container">
         <h2>Rows</h2>
         {#each rows as row, index}

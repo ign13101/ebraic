@@ -1,4 +1,3 @@
-
 const languages = {
     Spanish: {
         a: "\u2801",
@@ -231,7 +230,6 @@ const languages = {
         default: "\u282C",
 
     },
-
 };
 
 export default languages;

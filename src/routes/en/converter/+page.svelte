@@ -192,9 +192,7 @@
         <CardBody>
             <Form>
                 <FormGroup>
-                    <Label for="languageInput">
-                        Select input file:</Label
-                    >
+                    <Label for="languageInput">Select input file:</Label>
                     <Input
                         type="select"
                         id="languageInput"
@@ -206,9 +204,7 @@
                             <option value={language}>{language}</option>
                         {/each}
                     </Input>
-                    <Label for="epubFileInput"
-                        >Select EPUB file:</Label
-                    >
+                    <Label for="epubFileInput">Select EPUB file:</Label>
                     <Input
                         type="file"
                         id="epubFileInput"

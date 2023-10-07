@@ -1,14 +1,13 @@
 <script>
-    import {
-        Row,
-        Col,
-    } from "sveltestrap";
+    import { Row, Col } from "sveltestrap";
 </script>
 
 <header class="full-width-header">
     <Row class="d-md-flex align-items-center justify-content-between">
         <Col class="col-md-auto mb-2 mb-md-0 ml-md-4 mt-2">
-            <a href="/" class="linkBrand"><b> <span class="elevated-text">EBRAI</span>⠯</b></a>
+            <a href="/" class="linkBrand"
+                ><b> <span class="elevated-text">EBRAI</span>⠯</b></a
+            >
         </Col>
         <Col class="col-md-auto d-flex justify-content-md-end mr-md-4">
             <a href="/en/" class="link">Home</a>
@@ -21,18 +20,12 @@
 </header>
 
 <style>
-    /* You can add global or scoped styles here if needed */
-    /* * {
-        outline: 1px solid red;
-    } */
-
     .link {
         text-transform: uppercase;
         text-decoration: none;
         font-weight: bold;
         font-size: 0.9em;
         color: black;
-        
     }
 
     .linkBrand {
@@ -52,7 +45,7 @@
     /* Media query for mobile view */
     @media (max-width: 767px) {
         .link {
-            padding-left: 10px; 
+            padding-left: 10px;
         }
     }
     @media (min-width: 767px) {

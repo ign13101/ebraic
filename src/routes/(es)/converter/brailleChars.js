@@ -1,4 +1,3 @@
-
 const languages = {
     Español: {
         a: "\u2801",

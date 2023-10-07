@@ -33,7 +33,7 @@
                         brailleChar + nextBrailleChar
                     ]
                 );
-                i++; 
+                i++;
             } else if (brailleChar in dictionaries[selectedLanguage]) {
                 translatedCharacters.push(
                     dictionaries[selectedLanguage][brailleChar]
@@ -50,7 +50,6 @@
         }
         outputText = translatedCharacters.join("");
     };
-    
 </script>
 
 <svelte:head>
